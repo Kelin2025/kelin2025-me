@@ -11,7 +11,6 @@ import clock from "~ui/assets/icons/clock.svg";
 import { GameData } from "../moleculas/GameData";
 import { GameModal } from "./GameModal";
 import { Card, Grid, Icon, Input, Button, ColumnGrid } from "~ui";
-import { AddGameModal } from "./AddGameModal";
 
 css`
   [data-game] {
@@ -22,7 +21,6 @@ css`
 `;
 
 export const Games = () => {
-  const addGameModal = AddGameModal();
   ColumnGrid(() => {
     Grid({ cols: "1fr max-content" }, () => {
       Input(
@@ -30,10 +28,6 @@ export const Games = () => {
         {
           attr: { placeholder: "Поиск по играм..." }
         }
-      );
-      Button(
-        { type: "primary", text: "Добавить игру", click: addGameModal.open },
-        { data: { size: "form" } }
       );
     });
     ColumnGrid(() => {
