@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font: 16px "Segoe UI", sans-serif;
+  background: #141516;
+  color: #f2f3f5;
+  --color-link-disabled: #74808b;
+  --color-card-bg: #1e2124;
+  --color-green: #42ffbb;
+  --color-donate: #ffa842;
+  --color-primary: #577bf9;
+  --color-red: #ff4242;
+  --color-discord: #5c6bc0;
+  --color-youtube: red;
+  --color-twitch: #9e57f9;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}

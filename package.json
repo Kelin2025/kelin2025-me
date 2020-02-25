@@ -1,0 +1,32 @@
+{
+  "name": "@frameninja/kelin2025-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build:data": "copyfiles -f src/db/*.json dist",
+    "build:client": "parcel build src/index.html --public-url /public",
+    "build:server": "parcel build -t node src/server.ts --out-dir . --out-file server.js",
+    "build": "npm run build:client && npm run build:server && npm run build:data",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "copyfiles": "^2.2.0",
+    "effector": "^20.11.5",
+    "effector-dom": "0.0.11",
+    "express": "^4.17.1",
+    "lodash.template": "^4.5.0",
+    "nanoid": "^2.1.11",
+    "qs": "^6.9.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-svg-sprite": "^1.4.1",
+    "typescript": "^3.8.2",
+    "typescript-styled-plugin": "^0.15.0"
+  }
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Лучший в мире за работой I",
+    "description": "Пройти Dead Cells с проклятым мечом (0BC)",
+    "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/588650/4705bfe885c4c5a352ed3cf449f413c5e7b88771.jpg",
+    "video": "https://youtu.be/tQq2HMnPNXE",
+    "tags": [
+      { "type": "game", "value": "Dead Cells" },
+      { "type": "group", "value": "Проклятый Меч" }
+    ]
+  },
+  {
+    "title": "Лучший в мире за работой II",
+    "description": "Пройти Dead Cells с проклятым мечом (0BC)",
+    "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/588650/4705bfe885c4c5a352ed3cf449f413c5e7b88771.jpg",
+    "video": "https://youtu.be/aovsD_VONoU",
+    "tags": [
+      { "type": "game", "value": "Dead Cells" },
+      { "type": "group", "value": "Проклятый Меч" }
+    ]
+  },
+  {
+    "title": "Не умею в паркур",
+    "description": "Пройти Dead Cells без перекатов (4BC)",
+    "icon": "https://lh3.googleusercontent.com/xmS71FxyVML5KIdYCZXd8R5eSbEQFiLsUEq-qe9CLPm7Sy-CdCOYcXkPgdVPT3_ZQWI=s180-rw",
+    "video": "https://youtu.be/rB1YN1rX4Ew",
+    "tags": [
+      { "type": "game", "value": "Dead Cells" },
+      { "type": "group", "value": "Проклятый Меч" }
+    ]
+  },
+  {
+    "title": "Ломка",
+    "description": "Пройти Katana ZERO на хардкоре без замедления времени",
+    "icon": "https://sun9-41.userapi.com/c855520/v855520959/e6882/oAGyftQGcM0.jpg",
+    "video": "https://youtu.be/E1RQHvu1I0c",
+    "tags": [
+      { "type": "game", "value": "Katana ZERO" },
+      { "type": "group", "value": "Прочее" }
+    ]
+  }
+]
