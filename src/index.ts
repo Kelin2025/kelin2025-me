@@ -5,7 +5,7 @@ import "./features";
 import { Layout } from "~features/layout";
 import { HomePage } from "~pages/Home";
 import { GamesPage } from "~pages/Games";
-import { ChallengesPage } from "~pages/challenges";
+import { ChallengesPage } from "~pages/Challenges";
 
 const routes = [HomePage, GamesPage, ChallengesPage];
 
