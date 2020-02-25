@@ -40,6 +40,16 @@
     ]
   },
   {
+    "title": "Совершенный челлендж Медива",
+    "description": "Пройти Dead Cells на 4BC без фласок + через пещеры + с совершенством",
+    "icon": null,
+    "video": "https://youtu.be/_oj9Y510P0k",
+    "tags": [
+      { "type": "game", "value": "Dead Cells" },
+      { "type": "group", "value": "Прочее" }
+    ]
+  },
+  {
     "title": "Настоящее испытание воина",
     "description": "Пройти Испытание Воина в Hollow Knight стартовым гвоздем без амулетов",
     "icon": null,
