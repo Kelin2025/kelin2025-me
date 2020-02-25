@@ -10,7 +10,16 @@ import { gameModalTriggered } from "../logic/search";
 
 import clock from "~ui/assets/icons/clock.svg";
 import { GameData } from "../moleculas/GameData";
-import { Modal, Separator, List, Grid, Icon, Button, ColumnGrid } from "~ui";
+import {
+  Modal,
+  Separator,
+  List,
+  Grid,
+  Icon,
+  Button,
+  ColumnGrid,
+  Text
+} from "~ui";
 
 export const GameModal = (game: Store<Game>) => {
   const paragraphs = game.map(game =>
@@ -32,11 +41,10 @@ export const GameModal = (game: Store<Game>) => {
           });
         }
       );
-      Separator();
     },
     child: () => {
       ColumnGrid(() => {
-        h("div", () => {
+        Text(() => {
           list(paragraphs, ({ store }) => {
             h("p", { text: store });
           });

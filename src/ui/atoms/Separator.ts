@@ -5,7 +5,7 @@ css`
   [data-separator] {
     border: none;
     height: 1px;
-    margin: 20px 0;
+    margin: 0;
   }
 
   [data-separator="light"] {

@@ -1,5 +1,5 @@
 import { css } from "~lib/styled";
-import { spec } from "effector-dom";
+import { spec, h } from "effector-dom";
 
 css`
   [data-color] {
@@ -33,8 +33,27 @@ css`
   [data-color="twitch"] {
     --color: var(--color-twitch);
   }
+
+  [data-text] {
+    text-align: justify;
+  }
+
+  [data-text] p:first-child {
+    margin-top: 0;
+  }
+
+  [data-text] p:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const withColor = color => {
   spec({ data: { color } });
+};
+
+export const Text = child => {
+  h("div", () => {
+    spec({ data: { text: true } });
+    child();
+  });
 };

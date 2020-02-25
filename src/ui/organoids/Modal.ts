@@ -1,6 +1,7 @@
 import { css } from "~lib/styled";
 import { h, spec } from "effector-dom";
 import { createEvent, createStore, guard } from "effector";
+import { Separator } from "~ui/atoms/Separator";
 
 type Data = {
   title: Function;
@@ -30,14 +31,16 @@ css`
     border-radius: 10px;
     max-width: 100%;
     padding: 20px;
+    grid-gap: 20px;
     width: var(--width);
     max-height: calc(100% - 40px);
     overflow: auto;
     display: grid;
-    grid-template-rows: max-content 1fr max-content;
+    grid-template-rows: max-content max-content 1fr max-content;
   }
 
   [data-modal-child] {
+    padding-right: 10px;
     overflow: auto;
   }
 
@@ -96,6 +99,7 @@ export const Modal = ({ title, child, controls }: Data) => {
         spec({ data: { modalTitle: true } });
         title({ open, close });
       });
+      Separator();
       h("div", () => {
         spec({ data: { modalChild: true } });
         child({ open, close });

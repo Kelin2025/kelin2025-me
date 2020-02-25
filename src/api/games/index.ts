@@ -18,7 +18,9 @@ export type Game = {
 
 export const gamesLoaded = createEvent<Game[]>();
 
-export const $gamesList = createStore<Game[]>([]);
+export const $gamesList = createStore<Game[]>(
+  process.env.NODE_ENV === "development" ? JSON.parse(localStorage.games) : []
+);
 
 $gamesList.on(gamesLoaded, (state, games) => games);
 
