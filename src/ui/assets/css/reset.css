@@ -45,6 +45,7 @@ a {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
+  cursor: pointer;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
