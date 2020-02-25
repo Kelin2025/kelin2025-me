@@ -38,5 +38,25 @@
       { "type": "game", "value": "Katana ZERO" },
       { "type": "group", "value": "Прочее" }
     ]
+  },
+  {
+    "title": "Настоящее испытание воина",
+    "description": "Пройти Испытание Воина в Hollow Knight стартовым гвоздем без амулетов",
+    "icon": null,
+    "video": "https://youtu.be/mK2zLEZdy7Q",
+    "tags": [
+      { "type": "game", "value": "Hollow Knight" },
+      { "type": "group", "value": "Колизей" }
+    ]
+  },
+  {
+    "title": "Настоящее испытание завоевателя",
+    "description": "Пройти Испытание Завоевателя в Hollow Knight стартовым гвоздем без амулетов",
+    "icon": null,
+    "video": "https://youtu.be/-BDXzvpANOU",
+    "tags": [
+      { "type": "game", "value": "Hollow Knight" },
+      { "type": "group", "value": "Колизей" }
+    ]
   }
 ]
