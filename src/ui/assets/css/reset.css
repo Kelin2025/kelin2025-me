@@ -54,3 +54,8 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.5);
 }
+
+/* Handle on active */
+::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.75);
+}
