@@ -15,7 +15,7 @@ const $placeholders = createStore([
   "Его найдешь ты в обители хранителя",
   "Сей ключ скажу я лично, увидь лишь ты меня",
   "Меня увидит лишь находчивый охотник",
-  ""
+  "Просто напиши ключ лоооол"
 ]);
 
 $contact.on(contactChanged, (state, value) => value);
@@ -33,7 +33,7 @@ sample({
 
 export const GiveawayForm = () => {
   ColumnGrid(() => {
-    Label("Ваш контакт для связи (VK/Telegram/Discord/итд)", () => {
+    Label("Ваш контакт для связи (Ссылка VK/Telegram/Discord/итд)", () => {
       Input({ value: $contact, change: contactChanged });
     });
     list($phrases, ({ store, index }) => {
@@ -53,7 +53,7 @@ export const GiveawayForm = () => {
             text: "asdfasdfsadfsadfsdf",
             visible: store.map(() => index === 3),
             style: {
-              color: "rgba(0,0,0,0.1)",
+              color: "rgba(0,0,0,0.05)",
               marginTop: "-30px",
               marginLeft: "10px",
               pointerEvents: "none"

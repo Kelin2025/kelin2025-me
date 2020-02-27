@@ -9,6 +9,7 @@ import twitch from "~ui/assets/icons/twitch.svg";
 import discord from "~ui/assets/icons/discord.svg";
 import youtube from "~ui/assets/icons/youtube.svg";
 import { Grid, Card, Icon } from "~ui";
+import { $device } from "~ui/logic/screen";
 
 css`
   [data-contact-card]:hover {
@@ -22,8 +23,12 @@ css`
   }
 `;
 
+const $cols = $device.map(device =>
+  device === "phone" ? "1fr" : "1fr 1fr 1fr"
+);
+
 export const ContactsCards = () => {
-  Grid({ cols: 3 }, () => {
+  Grid({ cols: $cols }, () => {
     Card(() => {
       spec({ data: { color: "twitch", contactCard: true } });
       Icon({ link: twitch, scale: 3 });
