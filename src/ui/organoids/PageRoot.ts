@@ -6,6 +6,10 @@ css`
     padding: 40px;
     max-width: var(--width);
   }
+
+  [data-device="phone"] [data-page-root] {
+    padding: 20px;
+  }
 `;
 
 export const PageRoot = children => {

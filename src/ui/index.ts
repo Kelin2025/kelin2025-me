@@ -1,3 +1,5 @@
+import "./logic/*.ts";
+
 export * from "./atoms/Icon";
 export * from "./atoms/Button";
 export * from "./atoms/CardTitle";

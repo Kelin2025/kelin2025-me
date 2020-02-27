@@ -18,7 +18,7 @@ css`
     display: flex;
     justify-content: center;
     left: 0;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     z-index: 100;
@@ -33,6 +33,7 @@ css`
     padding: 20px;
     grid-gap: 20px;
     width: var(--width);
+    max-width: calc(100% - 40px);
     max-height: calc(100% - 40px);
     overflow: auto;
     display: grid;

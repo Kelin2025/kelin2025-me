@@ -8,6 +8,10 @@ css`
     font-size: 36px;
     font-weight: 500;
   }
+
+  [data-device="phone"] [data-page-subtitle] {
+    font-size: 24px;
+  }
 `;
 
 export const PageSubtitle = text => {

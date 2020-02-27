@@ -14,21 +14,7 @@ type LinkData = {
   href: string | Store<string>;
 };
 
-css`
-  [data-route-link] {
-    color: var(--color-link-disabled);
-    font-size: 30px;
-  }
-
-  [data-route-link]&[data-active] {
-    color: #ffffff;
-  }
-
-  [data-route-link] [data-icon] {
-    --size: 32px;
-    margin-right: 20px;
-  }
-`;
+css``;
 
 export const RouteLink = (
   { icon, text, href }: LinkData,

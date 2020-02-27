@@ -9,6 +9,10 @@ css`
   [data-content] {
     overflow: overlay;
   }
+
+  [data-device="phone"] [data-content] {
+    padding-bottom: 100px;
+  }
 `;
 
 export const Content = (routes: Route[]) => {

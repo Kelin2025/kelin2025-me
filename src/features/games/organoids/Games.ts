@@ -16,35 +16,45 @@ css`
   [data-game] {
     display: grid;
     align-items: center;
-    grid-template-columns: min-content 1fr max-content;
+    grid-gap: 20px;
+    grid-template-columns: 1fr max-content;
+  }
+
+  @media only screen and (max-width: 640px) {
+    [data-game] {
+      grid-template-columns: 1fr;
+    }
+
+    [data-game-hours] {
+      display: none;
+    }
   }
 `;
 
 export const Games = () => {
   ColumnGrid(() => {
-    Grid({ cols: "1fr max-content" }, () => {
-      Input(
-        { value: $searchInput, change: searchInputChanged },
-        {
-          attr: { placeholder: "Поиск по играм..." }
-        }
-      );
-    });
+    Input(
+      { value: $searchInput, change: searchInputChanged },
+      {
+        attr: { placeholder: "Поиск по играм..." }
+      }
+    );
     ColumnGrid(() => {
       list($filteredGames, ({ store }) => {
         const gameModal = GameModal(store);
         Card(() => {
           spec({ data: { game: true } });
-          h("img", {
-            data: { gameIcon: true },
-            attr: { src: remap(store, "image") }
-          });
+          // h("img", {
+          //   data: { gameIcon: true },
+          //   attr: { src: remap(store, "image") }
+          // });
           h("div", () => {
             GameData(store);
           });
           Grid({ flow: "column", align: "center" }, () => {
             spec({ data: { gameControls: true } });
             Grid({ flow: "column", gap: 8, align: "center" }, () => {
+              spec({ data: { gameHours: true } });
               Icon({ link: clock, scale: 1.5 });
               h("span", { text: store.map(game => `${game.hours}ч`) });
             });

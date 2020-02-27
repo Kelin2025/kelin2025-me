@@ -15,6 +15,10 @@ css`
   [data-page-description] > p:last-child {
     margin-bottom: 0;
   }
+
+  [data-device="phone"] [data-page-description] {
+    font-size: 16px;
+  }
 `;
 
 export const PageDescription = (specData: SpecData) => {

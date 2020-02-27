@@ -8,6 +8,10 @@ css`
     font-size: 48px;
     font-weight: 500;
   }
+
+  [data-device="phone"] [data-page-title] {
+    font-size: 30px;
+  }
 `;
 
 export const PageTitle = text => {

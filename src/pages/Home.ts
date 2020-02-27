@@ -34,8 +34,9 @@ const view = () => {
         "Roguelike / Roguelite",
         "Метроидвании",
         "Платформеры",
-        "Shoot them all / beat them up и прочие bullet hell",
+        "Shoot theem all и прочие bullet hell",
         "Слэшеры"
+        "Квесты и симуляторы ходьбы"
       ]);
     });
     PageSubtitle("Где я обитаю");

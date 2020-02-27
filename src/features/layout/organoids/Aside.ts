@@ -1,10 +1,11 @@
 import { css } from "~lib/styled";
-import { createStore } from "effector";
+import { createStore, Store } from "effector";
 import { h, list, remap, spec } from "effector-dom";
 
 import avatar from "~ui/assets/icons/avatar.png";
 import { Route } from "~lib/route";
 import { RouteLink, Grid } from "~ui";
+import { onlyOn } from "~ui/logic/screen";
 
 css`
   [data-aside] {
@@ -28,7 +29,8 @@ css`
   }
 
   [data-aside-link] {
-    color: #a6a6a6;
+    color: var(--color-link-disabled);
+    font-size: 30px;
     display: block;
     font-size: 20px;
     padding: 15px;
@@ -36,15 +38,34 @@ css`
     transition: color 0.2s ease-out, background 0.2s ease-out;
   }
 
+  [data-aside-link]&[data-active] {
+    color: #ffffff;
+  }
+
+  [data-aside-link] [data-icon] {
+    --size: 32px;
+    margin-right: 20px;
+  }
+
   [data-aside-link][data-active] {
     color: #fff;
     background: #232628;
   }
+
+  /* [data-device="phone"] [data-aside] {
+    border-radius: 10px 10px 0 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: none;
+    margin: 0;
+    transform: translateY(100%);
+  } */
 `;
 
-export const Aside = (routes: Route[]) => {
-  const $routes = createStore(routes);
+export const Aside = (routes: Store<Route[]>) => {
   h("aside", () => {
+    onlyOn("desktop");
     spec({ data: { aside: true } });
     Grid({ cols: "48px max-content", align: "center" }, () => {
       spec({ data: { asideHeader: true } });
@@ -55,7 +76,7 @@ export const Aside = (routes: Route[]) => {
       });
       h("h3", { text: "Kelin2025" });
     });
-    list($routes, ({ store }) => {
+    list(routes, ({ store }) => {
       RouteLink(
         {
           icon: store.map(link => link.meta.icon),
