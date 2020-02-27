@@ -85,7 +85,10 @@ app.post("/api/check", async (req, res) => {
     ).codes,
     req.body.answers,
     user.answers
-  ).map(([real, provided, wasAnswered]) => wasAnswered || real === provided);
+  ).map(
+    ([real, provided, wasAnswered]: [string, string, boolean]) =>
+      wasAnswered || real.toLowerCase() === provided.trim().toLowerCase()
+  );
 
   user.answers = results;
   user.contact = req.body.contact;
