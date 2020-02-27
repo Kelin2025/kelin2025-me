@@ -1,6 +1,6 @@
 import { css } from "~lib/styled";
 import { Store } from "effector";
-import { onEventData } from "~lib/dom-utils";
+import { eventWithData } from "~lib/dom-utils";
 import { remap, h, spec, list, handler } from "effector-dom";
 
 import { Game } from "~api/games";
@@ -40,7 +40,7 @@ export const GameData = (store: Store<Game>) => {
       });
     });
     list(tags, ({ store, index }) => {
-      const click = onEventData<MouseEvent>(
+      const click = eventWithData<MouseEvent>(
         store.map(tag => tag.value),
         searchInputChanged
       );

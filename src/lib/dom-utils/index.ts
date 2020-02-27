@@ -1,6 +1,6 @@
 import { Store, Event, is, createEvent, sample, createStore } from "effector";
 
-export const onEventData = <U, State, TargetData>(
+export const eventWithData = <U, State, TargetData>(
   store: State | Store<State>,
   event: Event<TargetData>,
   cb?: (data: State, evt: U) => TargetData

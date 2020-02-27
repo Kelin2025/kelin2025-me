@@ -51,7 +51,7 @@ export const withColor = color => {
   spec({ data: { color } });
 };
 
-export const Text = child => {
+export const TextBlock = child => {
   h("div", () => {
     spec({ data: { text: true } });
     child();

@@ -1,6 +1,13 @@
 import { css } from "~lib/styled";
 import { specCb } from "~lib/spec";
 import { h, spec } from "effector-dom";
+import { Store, Event } from "effector";
+
+type Data = {
+  value: Store<string>;
+  change: Event<string>;
+  multiline?: boolean;
+};
 
 css`
   [data-input] {
@@ -26,7 +33,10 @@ css`
   }
 `;
 
-export const Input = ({ value, change, multiline = false }, extra = null) => {
+export const Input = (
+  { value, change, multiline = false }: Data,
+  extra = null
+) => {
   h(multiline ? "textarea" : "input", () => {
     spec({
       data: { input: true },

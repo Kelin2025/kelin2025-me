@@ -1,6 +1,6 @@
 import { copyText } from "~lib/copy";
 import { textToHash } from "~lib/search-hash";
-import { onEventData } from "~lib/dom-utils";
+import { eventWithData } from "~lib/dom-utils";
 import { routeChanged } from "~lib/route";
 import { h, remap, spec, list } from "effector-dom";
 import { Store, forward, sample, guard } from "effector";
@@ -10,16 +10,7 @@ import { gameModalTriggered } from "../logic/search";
 
 import clock from "~ui/assets/icons/clock.svg";
 import { GameData } from "../moleculas/GameData";
-import {
-  Modal,
-  Separator,
-  List,
-  Grid,
-  Icon,
-  Button,
-  ColumnGrid,
-  Text
-} from "~ui";
+import { Modal, List, Grid, Icon, Button, ColumnGrid, TextBlock } from "~ui";
 
 export const GameModal = (game: Store<Game>) => {
   const paragraphs = game.map(game =>
@@ -44,7 +35,7 @@ export const GameModal = (game: Store<Game>) => {
     },
     child: () => {
       ColumnGrid(() => {
-        Text(() => {
+        TextBlock(() => {
           list(paragraphs, ({ store }) => {
             h("p", { text: store });
           });
@@ -70,7 +61,7 @@ export const GameModal = (game: Store<Game>) => {
         {
           type: "primary",
           text: "Копировать ссылку",
-          click: onEventData<MouseEvent>(
+          click: eventWithData<MouseEvent>(
             game.map(
               game => `https://kelin2025.me/games#${textToHash(game.title)}`
             ),

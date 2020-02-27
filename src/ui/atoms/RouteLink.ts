@@ -6,7 +6,7 @@ import { h, spec, handler } from "effector-dom";
 import { $currentRoute, routeChanged } from "~lib/route";
 
 import { Icon } from "./Icon";
-import { onEventData } from "~lib/dom-utils";
+import { eventWithData } from "~lib/dom-utils";
 
 type LinkData = {
   icon: string | Store<string>;
@@ -30,7 +30,7 @@ export const RouteLink = (
     });
     Icon({ link: icon });
     h("span", { text });
-    handler({ prevent: true }, { click: onEventData(href, routeChanged) });
+    handler({ prevent: true }, { click: eventWithData(href, routeChanged) });
     specCb(specData);
   });
 };
