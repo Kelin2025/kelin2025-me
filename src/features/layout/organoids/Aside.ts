@@ -21,6 +21,7 @@ css`
 
   [data-aside-header] img {
     border-radius: 50%;
+    height: 44px;
   }
 
   [data-aside-header] h3 {

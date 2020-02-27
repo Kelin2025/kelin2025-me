@@ -5,7 +5,7 @@ import { GiveawayForm } from "~features/giveaway";
 import { ContactsCards } from "~features/contacts";
 import { PageTitle, PageDescription, ColumnGrid, PageSubtitle } from "~ui";
 
-const title = "Розыгрыш";
+const title = "Тот Самый Розыгрыш";
 const link = "/giveaway";
 const meta = { icon, width: 800 };
 
@@ -23,6 +23,14 @@ const view = () => {
     h("p", {
       text:
         "Для участия в конкурсе вам необходимо найти их все и ввести ниже. Среди тех, кто угадал все 5, я случайным образом выберу победителя"
+    });
+    h("p", {
+      text:
+        "Победитель получит Steam-версию игры Ori and the Will of the Wisps. Учтите, что я не смогу подарить вам игру, если вы находитесь"
+    });
+    h("p", {
+      text:
+        "Розыгрыш будет проведен в день релиза Ori (либо на следующий день, если выйдет поздно по московскому времени) в прямом эфире"
     });
   });
   ColumnGrid(() => {

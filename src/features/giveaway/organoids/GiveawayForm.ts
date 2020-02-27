@@ -1,61 +1,33 @@
+import { combine } from "effector";
 import { list, h, spec } from "effector-dom";
 import { eventWithData } from "~lib/dom-utils";
-import { getParsedStorageItem, createStorageSetter } from "~lib/localstorage";
-import { createStore, createEvent, sample, forward, combine } from "effector";
 
-import { $token } from "~api/session";
-import { $trueAnswers, checkGiveaway } from "~api/giveaway";
+import { $trueAnswers } from "~api/giveaway";
+import {
+  $isDirty,
+  $contactField,
+  $placeholders,
+  contactChanged,
+  $answersField,
+  answerChanged,
+  submitPressed,
+  $isAllValid
+} from "../logic";
 
 import { ColumnGrid, Label, Input, Button } from "~ui";
-
-const contactChanged = createEvent<string>();
-const submitPressed = createEvent<string>();
-const answerChanged = createEvent<{ index: number; value: string }>();
-
-const $isDirty = createStore(false);
-const $contact = createStore("");
-const $answers = createStore(
-  getParsedStorageItem<string[]>("giveaway1.answers", ["", "", "", "", ""])
-);
-const $placeholders = createStore([
-  "Ответ хранит сосуд, что чист внутри",
-  "Его найдешь ты в обители хранителя",
-  "Сей ключ скажу я лично, увидь лишь ты меня",
-  "Меня увидит лишь находчивый охотник",
-  "Просто напиши ключ лоооол"
-]);
-
-$contact.on(contactChanged, (state, value) => value);
-
-$answers.on(answerChanged, (state, { index, value }) => {
-  const next = [...state];
-  next[index] = value;
-  return next;
-});
-
-$isDirty.on(checkGiveaway.done, () => true);
-
-forward({
-  from: $answers.updates,
-  to: createStorageSetter<string[]>({ key: "giveaway1.answers", json: true })
-});
-
-sample({
-  source: {
-    uid: $token,
-    contact: $contact,
-    answers: $answers
-  },
-  clock: submitPressed,
-  target: checkGiveaway
-});
 
 export const GiveawayForm = () => {
   ColumnGrid(() => {
     Label("Ваш контакт для связи (Ссылка VK/Telegram/Discord/итд)", () => {
-      Input({ value: $contact, change: contactChanged });
+      Input(
+        { value: $contactField, change: contactChanged },
+        {
+          attr: { disabled: $isAllValid },
+          data: { valid: $isAllValid, dirty: true }
+        }
+      );
     });
-    list($answers, ({ store, index }) => {
+    list($answersField, ({ store, index }) => {
       const $trueAnswer = $trueAnswers.map(answers => answers[index]);
       Label(`Ключ №${index + 1}`, () => {
         Input(
@@ -94,5 +66,14 @@ export const GiveawayForm = () => {
       });
     });
   });
-  Button({ type: "primary", text: "Отправить", click: submitPressed });
+  Button(
+    { type: "primary", text: "Отправить", click: submitPressed },
+    { visible: $isAllValid.map(isAllValid => !isAllValid) }
+  );
+  h("div", {
+    visible: $isAllValid,
+    text:
+      "Все правильно! Не забудь прийти на стрим в день выхода Ori, чтобы не упустить свой приз!",
+    style: { textAlign: "center" }
+  });
 };
