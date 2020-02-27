@@ -31,6 +31,16 @@ css`
     outline: none;
     box-shadow: 0 0 0 2px #577bf9 inset;
   }
+
+  [data-input][data-dirty][data-valid] {
+    color: var(--color-green);
+    box-shadow: 0 0 0 2px var(--color-green) inset;
+  }
+
+  [data-input][data-dirty]:not([data-valid]) {
+    color: var(--color-red);
+    box-shadow: 0 0 0 2px var(--color-red) inset;
+  }
 `;
 
 export const Input = (

@@ -1,10 +1,10 @@
 import { list, h, spec } from "effector-dom";
 import { eventWithData } from "~lib/dom-utils";
-import { getParsedStorageItem } from "~lib/localstorage";
-import { createStore, createEvent, sample } from "effector";
+import { getParsedStorageItem, createStorageSetter } from "~lib/localstorage";
+import { createStore, createEvent, sample, forward, combine } from "effector";
 
 import { $token } from "~api/session";
-import { checkGiveaway } from "~api/giveaway";
+import { $trueAnswers, checkGiveaway } from "~api/giveaway";
 
 import { ColumnGrid, Label, Input, Button } from "~ui";
 
@@ -12,6 +12,7 @@ const contactChanged = createEvent<string>();
 const submitPressed = createEvent<string>();
 const answerChanged = createEvent<{ index: number; value: string }>();
 
+const $isDirty = createStore(false);
 const $contact = createStore("");
 const $answers = createStore(
   getParsedStorageItem<string[]>("giveaway1.answers", ["", "", "", "", ""])
@@ -32,6 +33,13 @@ $answers.on(answerChanged, (state, { index, value }) => {
   return next;
 });
 
+$isDirty.on(checkGiveaway.done, () => true);
+
+forward({
+  from: $answers.updates,
+  to: createStorageSetter<string[]>({ key: "giveaway1.answers", json: true })
+});
+
 sample({
   source: {
     uid: $token,
@@ -48,6 +56,7 @@ export const GiveawayForm = () => {
       Input({ value: $contact, change: contactChanged });
     });
     list($answers, ({ store, index }) => {
+      const $trueAnswer = $trueAnswers.map(answers => answers[index]);
       Label(`Ключ №${index + 1}`, () => {
         Input(
           {
@@ -57,7 +66,18 @@ export const GiveawayForm = () => {
               value
             }))
           },
-          { attr: { placeholder: $placeholders.map(list => list[index]) } }
+          () => {
+            spec({
+              data: {
+                valid: $trueAnswer.map(Boolean),
+                dirty: combine($isDirty, $trueAnswer, (a, b) => a || b)
+              },
+              attr: {
+                disabled: $trueAnswer.map(Boolean),
+                placeholder: $placeholders.map(list => list[index])
+              }
+            });
+          }
         );
         h("div", () => {
           spec({

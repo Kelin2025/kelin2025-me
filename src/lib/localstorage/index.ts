@@ -5,13 +5,13 @@ export const setStorageItem = createEvent<{
   value: any;
   json: boolean;
 }>();
-export const createStorageSetter = ({
+export const createStorageSetter = <T>({
   key,
   json
 }: {
   key: string;
   json: boolean;
-}) => setStorageItem.prepend(value => ({ key, value, json }));
+}) => setStorageItem.prepend<T>(value => ({ key, value, json }));
 
 setStorageItem.watch(({ key, value, json }) => {
   localStorage[key] = json ? JSON.stringify(value) : value;

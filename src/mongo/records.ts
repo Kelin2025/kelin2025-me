@@ -2,13 +2,13 @@ import { Schema, model, Document } from "mongoose";
 
 interface IRecord extends Document {
   contact: string;
-  answers: boolean;
+  answers: string[];
   uid: string;
 }
 
 const RecordSchema = new Schema({
   contact: String,
-  answers: [Boolean],
+  answers: [String],
   uid: {
     type: String,
     index: true,

@@ -63,7 +63,8 @@ app.post("/api/results", async (req, res) => {
 
   res.json({
     error: false,
-    answers: (user && user.answers) || [false, false, false, false, false]
+    contact: req.body.contact,
+    answers: (user && user.answers) || [null, null, null, null, null]
   });
 });
 
@@ -76,7 +77,7 @@ app.post("/api/check", async (req, res) => {
     user = new RecordModel({
       uid: req.body.uid,
       contact: req.body.contact,
-      answers: [false, false, false, false, false]
+      answers: [null, null, null, null, null]
     });
 
   const results = zip(
@@ -87,9 +88,10 @@ app.post("/api/check", async (req, res) => {
     ).codes,
     req.body.answers,
     user.answers
-  ).map(
-    ([real, provided, wasAnswered]: [string, string, boolean]) =>
-      wasAnswered || real.toLowerCase() === provided.trim().toLowerCase()
+  ).map(([real, provided, trueAnswer]: [string, string, boolean]) =>
+    trueAnswer || real.toLowerCase() === provided.trim().toLowerCase()
+      ? real
+      : null
   );
 
   user.answers = results;
