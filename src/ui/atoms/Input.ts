@@ -27,6 +27,11 @@ css`
     min-height: 150px;
   }
 
+  [data-input][disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   [data-input]:focus {
     outline: none;
     box-shadow: 0 0 0 2px #577bf9 inset;

@@ -12,6 +12,18 @@ type CheckGiveaway = {
   };
   response: {
     error: false;
+    contact: string;
+    answers: string[];
+  };
+};
+
+type GetGiveawayResults = {
+  payload: {
+    uid: string;
+  };
+  response: {
+    error: false;
+    contact: string;
     answers: string[];
   };
 };
@@ -23,16 +35,14 @@ export const checkGiveaway = createEffect<
   handler: createReq("POST", "api/check")
 });
 
-type GetGiveawayResults = {
-  payload: { uid: string };
-  response: { error: false; answers: string[] };
-};
 export const getGiveawayResults = createEffect<
   GetGiveawayResults["payload"],
   GetGiveawayResults["response"]
 >({
   handler: createReq("POST", "api/results")
 });
+
+export const $contact = createStore<string>("");
 
 export const $trueAnswers = createStore(
   getParsedStorageItem<string[]>("giveaway1.trueAnswers", [
@@ -44,14 +54,16 @@ export const $trueAnswers = createStore(
   ])
 );
 
-sample({
-  source: combine({ uid: $token }),
-  target: getGiveawayResults
-});
+$contact.on(getGiveawayResults.done, (state, { result }) => result.contact);
 
 $trueAnswers
   .on(getGiveawayResults.done, (state, { result }) => result.answers)
   .on(checkGiveaway.done, (state, { result }) => result.answers);
+
+sample({
+  source: combine({ uid: $token }),
+  target: getGiveawayResults
+});
 
 forward({
   from: $trueAnswers.updates,

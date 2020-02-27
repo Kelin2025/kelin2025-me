@@ -63,7 +63,7 @@ app.post("/api/results", async (req, res) => {
 
   res.json({
     error: false,
-    contact: req.body.contact,
+    contact: user.contact,
     answers: (user && user.answers) || [null, null, null, null, null]
   });
 });
@@ -80,18 +80,22 @@ app.post("/api/check", async (req, res) => {
       answers: [null, null, null, null, null]
     });
 
-  const results = zip(
-    (
-      await CodeModel.findOne()
-        .lean()
-        .exec()
-    ).codes,
-    req.body.answers,
-    user.answers
-  ).map(([real, provided, trueAnswer]: [string, string, boolean]) =>
-    trueAnswer || real.toLowerCase() === provided.trim().toLowerCase()
-      ? real
-      : null
+  const realCodes = (
+    await CodeModel.findOne()
+      .lean()
+      .exec()
+  ).codes;
+
+  const results = zip(realCodes, req.body.answers, user.answers).map(
+    ([real, provided, userAnswer]: [string, string, boolean]) => {
+      if (userAnswer) {
+        return userAnswer;
+      }
+      if (real.toLowerCase() === provided.trim().toLowerCase()) {
+        return real;
+      }
+      return null;
+    }
   );
 
   user.answers = results;
