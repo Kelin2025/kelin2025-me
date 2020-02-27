@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import * as fs from "fs";
 import * as path from "path";
@@ -47,6 +48,7 @@ const codesChecker = ajv.compile({
 
 app.use("/public", express.static(path.join(__dirname, "dist")));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("*", (req, res) => {
   res.send(page);

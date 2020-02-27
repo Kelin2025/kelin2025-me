@@ -17,12 +17,16 @@ setStorageItem.watch(({ key, value, json }) => {
   localStorage[key] = json ? JSON.stringify(value) : value;
 });
 
-export const getParsedStorageItem = (key: string, def) => {
+export const getParsedStorageItem = <T>(key: string, def: T): T => {
   let value = def;
   try {
     value = JSON.parse(localStorage[key]);
   } catch (err) {
-    setStorageItem({ key, value: def, json: true });
+    setStorageItem({
+      key,
+      value: typeof def === "function" ? def() : def,
+      json: true
+    });
   }
   return value;
 };

@@ -1,4 +1,6 @@
-import { createEffect } from "effector";
+import { getParsedStorageItem } from "~lib/localStorage";
+import { createEffect, createStore } from "effector";
+import { req, createReq } from "~lib/api";
 
 type CheckGiveaway = {
   payload: {
@@ -16,26 +18,20 @@ export const checkGiveaway = createEffect<
   CheckGiveaway["payload"],
   CheckGiveaway["response"]
 >({
-  handler: ({ uid, contact, answers }) => {
-    return fetch("https://kelin2025.me/api/check", {
-      method: "POST",
-      body: JSON.stringify({ uid, contact, answers })
-    }).then(r => r.json());
-  }
+  handler: createReq("POST", "api/check")
 });
 
-type GetResults = {
+type GetGiveawayResults = {
   payload: { uid: string };
   response: { error: false; answers: string[] };
 };
-export const getResults = createEffect<
-  GetResults["payload"],
-  GetResults["response"]
+export const getGiveawayResults = createEffect<
+  GetGiveawayResults["payload"],
+  GetGiveawayResults["response"]
 >({
-  handler: ({ uid }) => {
-    return fetch("https://kelin2025.me/api/results", {
-      method: "POST",
-      body: JSON.stringify({ uid })
-    }).then(r => r.json());
-  }
+  handler: createReq("POST", "api/results")
 });
+
+export const $trueAnswers = createStore(
+  getParsedStorageItem<string[]>("giveaway1.trueAnswers", ["", "", "", "", ""])
+);

@@ -1,15 +1,21 @@
 import { list, h, spec } from "effector-dom";
 import { eventWithData } from "~lib/dom-utils";
+import { getParsedStorageItem } from "~lib/localstorage";
 import { createStore, createEvent, sample } from "effector";
+
+import { $token } from "~api/session";
+import { checkGiveaway } from "~api/giveaway";
 
 import { ColumnGrid, Label, Input, Button } from "~ui";
 
 const contactChanged = createEvent<string>();
 const submitPressed = createEvent<string>();
-const phraseChanged = createEvent<{ index: number; value: string }>();
+const answerChanged = createEvent<{ index: number; value: string }>();
 
 const $contact = createStore("");
-const $phrases = createStore(["", "", "", "", ""]);
+const $answers = createStore(
+  getParsedStorageItem<string[]>("giveaway1.answers", ["", "", "", "", ""])
+);
 const $placeholders = createStore([
   "Ответ хранит сосуд, что чист внутри",
   "Его найдешь ты в обители хранителя",
@@ -20,28 +26,33 @@ const $placeholders = createStore([
 
 $contact.on(contactChanged, (state, value) => value);
 
-$phrases.on(phraseChanged, (state, { index, value }) => {
+$answers.on(answerChanged, (state, { index, value }) => {
   const next = [...state];
   next[index] = value;
   return next;
 });
 
 sample({
-  source: { contact: $contact, phrases: $phrases },
-  clock: submitPressed
-}).watch(console.log);
+  source: {
+    uid: $token,
+    contact: $contact,
+    answers: $answers
+  },
+  clock: submitPressed,
+  target: checkGiveaway
+});
 
 export const GiveawayForm = () => {
   ColumnGrid(() => {
     Label("Ваш контакт для связи (Ссылка VK/Telegram/Discord/итд)", () => {
       Input({ value: $contact, change: contactChanged });
     });
-    list($phrases, ({ store, index }) => {
+    list($answers, ({ store, index }) => {
       Label(`Ключ №${index + 1}`, () => {
         Input(
           {
             value: store,
-            change: eventWithData(store, phraseChanged, value => ({
+            change: eventWithData(store, answerChanged, (state, value) => ({
               index,
               value
             }))

@@ -1,10 +1,7 @@
 import nanoid from "nanoid";
 import { createStore } from "effector";
+import { getParsedStorageItem } from "~lib/localstorage";
 
-let token = localStorage.sessionToken;
-if (!token) {
-  localStorage.sessionToken = nanoid();
-  token = localStorage.sessionToken;
-}
-
-export const $token = createStore<string>(token);
+export const $token = createStore<string>(
+  getParsedStorageItem<string>("token", nanoid)
+);

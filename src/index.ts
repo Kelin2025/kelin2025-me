@@ -8,7 +8,7 @@ import { GamesPage } from "~pages/Games";
 import { ContestPage } from "~pages/Contest";
 import { ChallengesPage } from "~pages/Challenges";
 
-const routes = [HomePage, GamesPage, ChallengesPage, ContestPage];
+const routes = [HomePage, GamesPage, ChallengesPage];
 
 using(document.getElementById("app"), () => {
   Layout(routes);
