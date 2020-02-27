@@ -5,6 +5,7 @@ import { Card } from "./Card";
 import { h, spec } from "effector-dom";
 import { YoutubeLink } from "~ui/atoms/YoutubeLink";
 import { toStore, specCb, SpecData } from "~lib/spec";
+import { onlyOn } from "~ui/logic/screen";
 
 css`
   [data-challenge-card] {
@@ -46,6 +47,20 @@ css`
   [data-challenge-card] > [data-controls] {
     grid-area: controls;
   }
+
+  [data-device="phone"] [data-challenge-card] {
+    grid-template-areas: "title" "description" "controls";
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  [data-device="phone"] [data-challenge-card] > h2 {
+    font-size: 20px;
+  }
+
+  [data-device="phone"] [data-challenge-view-more] {
+    width: 100%;
+  }
 `;
 
 export const ChallengeCard = (
@@ -57,6 +72,7 @@ export const ChallengeCard = (
     h("h2", { text: title });
     h("p", { text: description });
     h("div", () => {
+      onlyOn("desktop");
       spec({ data: { icon: true } });
       h("img", { attr: { src: icon } });
     });
@@ -64,7 +80,12 @@ export const ChallengeCard = (
       spec({ data: { controls: true } });
       YoutubeLink(
         { text: "Видео", href: video },
-        { visible: toStore(video).map(Boolean) }
+        {
+          data: {
+            challengeViewMore: true,
+            visible: toStore(video).map(Boolean)
+          }
+        }
       );
     });
     specCb(specs);

@@ -16,7 +16,7 @@ css`
   [data-game] {
     display: grid;
     align-items: center;
-    grid-gap: 20px;
+    grid-gap: 10px;
     grid-template-columns: 1fr max-content;
   }
 

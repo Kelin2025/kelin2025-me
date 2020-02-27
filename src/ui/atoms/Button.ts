@@ -14,6 +14,7 @@ css`
     font: 500 16px/16px "Segoe UI", sans-serif;
     padding: 10px 20px;
     transition: opacity 0.1s ease-out;
+    text-align: center;
   }
 
   [data-button]:hover,

@@ -12,7 +12,11 @@ export type Challenge = {
 
 export const challengesLoaded = createEvent<Challenge[]>();
 
-export const $challengesList = createStore<Challenge[]>([]);
+export const $challengesList = createStore<Challenge[]>(
+  process.env.NODE_ENV === "development"
+    ? JSON.parse(localStorage.challenges)
+    : []
+);
 
 export const $challengesGames = $challengesList.map(list =>
   list.reduce((res, cur) => {
