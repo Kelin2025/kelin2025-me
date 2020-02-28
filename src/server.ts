@@ -63,7 +63,7 @@ app.post("/api/results", async (req, res) => {
 
   res.json({
     error: false,
-    contact: user.contact,
+    contact: (user && user.contact) || null,
     answers: (user && user.answers) || [null, null, null, null, null]
   });
 });

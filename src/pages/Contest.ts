@@ -5,12 +5,12 @@ import { GiveawayForm } from "~features/giveaway";
 import { ContactsCards } from "~features/contacts";
 import { PageTitle, PageDescription, ColumnGrid, PageSubtitle } from "~ui";
 
-const title = "Тот Самый Розыгрыш";
+const title = "Розыгрыш Ori";
 const link = "/giveaway";
 const meta = { icon, width: 800 };
 
 const view = () => {
-  PageTitle("Тот самый розыгрыш");
+  PageTitle("Тот Самый Розыгрыш");
   PageDescription(() => {
     h("p", {
       text:
@@ -26,11 +26,11 @@ const view = () => {
     });
     h("p", {
       text:
-        "Победитель получит Steam-версию игры Ori and the Will of the Wisps. Учтите, что я не смогу подарить вам игру, если вы находитесь"
+        "Победитель получит Steam-версию игры Ori and the Will of the Wisps. Учтите, что я не смогу подарить вам игру, если вы находитесь не в СНГ/в Украине"
     });
     h("p", {
       text:
-        "Розыгрыш будет проведен в день релиза Ori (либо на следующий день, если выйдет поздно по московскому времени) в прямом эфире"
+        "Розыгрыш будет проведен в день релиза Ori в прямом эфире (либо на следующий день, если выйдет поздно по московскому времени)"
     });
   });
   ColumnGrid(() => {
