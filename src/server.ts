@@ -50,8 +50,25 @@ app.use("/public", express.static(path.join(__dirname, "dist")));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("*", (req, res) => {
-  res.send(page);
+app.get("/api/stats", async (req, res) => {
+  console.log(req.body);
+  const realCodes = (
+    await CodeModel.findOne()
+      .lean()
+      .exec()
+  ).codes;
+  const users = await RecordModel.find({})
+    .lean()
+    .exec();
+  const stats = realCodes.map(
+    (real, idx) => users.filter(cur => cur.answers[idx] === real).length
+  );
+  console.log(stats);
+  res.json({
+    error: false,
+    stats,
+    total: users.length
+  });
 });
 
 app.post("/api/results", async (req, res) => {
@@ -106,6 +123,10 @@ app.post("/api/check", async (req, res) => {
     error: false,
     answers: results
   });
+});
+
+app.get("*", (req, res) => {
+  res.send(page);
 });
 
 app.listen(process.env.PORT || 8080, () => console.log("Listening!"));
