@@ -1,5 +1,5 @@
 import { createReq } from "~lib/api";
-import { getParsedStorageItem, createStorageSetter } from "~lib/localStorage";
+import { getParsedStorageItem, createStorageSetter } from "~/lib/localStorage";
 import { createEffect, createStore, sample, combine, forward } from "effector";
 
 import { $token } from "~api/session";
