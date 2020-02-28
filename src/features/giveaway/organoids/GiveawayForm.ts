@@ -2,7 +2,7 @@ import { combine } from "effector";
 import { list, h, spec } from "effector-dom";
 import { eventWithData } from "~lib/dom-utils";
 
-import { $trueAnswers } from "~api/giveaway";
+import { $stats, $trueAnswers, $allPassedCount } from "~api/giveaway";
 import {
   $isDirty,
   $contactField,
@@ -15,7 +15,7 @@ import {
   $canSubmit
 } from "../logic";
 
-import { ColumnGrid, Label, Input, Button } from "~ui";
+import { ColumnGrid, Label, Input, Button, Card } from "~ui";
 
 export const GiveawayForm = () => {
   ColumnGrid(() => {
@@ -30,6 +30,7 @@ export const GiveawayForm = () => {
     });
     list($answersField, ({ store, index }) => {
       const $trueAnswer = $trueAnswers.map(answers => answers[index]);
+      const $isValid = $trueAnswer.map(Boolean);
       Label(`Ключ №${index + 1}`, () => {
         Input(
           {
@@ -42,11 +43,11 @@ export const GiveawayForm = () => {
           () => {
             spec({
               data: {
-                valid: $trueAnswer.map(Boolean),
+                valid: $isValid,
                 dirty: combine($isDirty, $trueAnswer, (a, b) => a || b)
               },
               attr: {
-                disabled: $trueAnswer.map(Boolean),
+                disabled: $isValid,
                 placeholder: $placeholders.map(list => list[index])
               }
             });
@@ -54,14 +55,24 @@ export const GiveawayForm = () => {
         );
         h("div", () => {
           spec({
-            text: "asdfasdfsadfsadfsdf",
+            text: "ТЫ ЗАЧЕМ ЩУРИШЬСЯ",
             visible: store.map(() => index === 3),
             style: {
-              color: "rgba(0,0,0,0.05)",
+              color: "rgba(0,0,0,0.07)",
               marginTop: "-30px",
               marginLeft: "10px",
               pointerEvents: "none"
             }
+          });
+        });
+        h("div", () => {
+          spec({
+            visible: $isValid,
+            text: $stats.map(
+              stats =>
+                `Этот ключ нашли ${Math.floor(stats[index] * 100)}% участников`
+            ),
+            data: { color: "green" }
           });
         });
       });
@@ -74,10 +85,16 @@ export const GiveawayForm = () => {
       visible: $isAllValid.map(isAllValid => !isAllValid)
     }
   );
-  h("div", {
-    visible: $isAllValid,
-    text:
-      "Все правильно! Не забудь прийти на стрим в день выхода Ori, чтобы не упустить свой приз!",
-    style: { textAlign: "center" }
+  Card(() => {
+    spec({ visible: $isAllValid, style: { textAlign: "center" } });
+    h("div", {
+      text:
+        "Все правильно! Не забудь прийти на стрим в день выхода Ori, чтобы не упустить свой приз!"
+    });
+    h("div", {
+      text: $allPassedCount.map(
+        count => `Полностью справились с заданием ${count} человек!`
+      )
+    });
   });
 };

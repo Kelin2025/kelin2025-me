@@ -6,7 +6,7 @@ export const req = <T extends {}>(method: Method, path: string, body: T) => {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(body)
+    ...(method !== "GET" ? { body: JSON.stringify(body) } : {})
   }).then(r => r.json());
 };
 
