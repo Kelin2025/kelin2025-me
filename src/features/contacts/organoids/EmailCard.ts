@@ -1,7 +1,7 @@
 import { h } from "effector-dom";
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 
-import { Card } from "~ui";
+import { Card } from "@/ui";
 
 css`
   [data-email-title] {

@@ -1,7 +1,7 @@
 import { createEvent, createStore, sample, combine } from "effector";
 
-import { $token } from "~api/session";
-import { $contact, $trueAnswers, checkGiveaway } from "~api/giveaway";
+import { $token } from "@/api/session";
+import { $contact, $trueAnswers, checkGiveaway } from "@/api/giveaway";
 
 export const contactChanged = createEvent<string>();
 export const submitPressed = createEvent<string>();

@@ -1,6 +1,6 @@
 import { h } from "effector-dom";
-import { css } from "~lib/styled";
-import { specCb } from "~lib/spec";
+import { css } from "@/lib/styled";
+import { specCb } from "@/lib/spec";
 
 css`
   [data-card] {

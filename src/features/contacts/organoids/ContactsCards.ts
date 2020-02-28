@@ -1,15 +1,15 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { h, spec } from "effector-dom";
-import { openTab } from "~lib/route";
-import { eventWithData } from "~lib/dom-utils";
+import { openTab } from "@/lib/route";
+import { eventWithData } from "@/lib/dom-utils";
 
-import { attachClick } from "~ui/logic/click";
+import { attachClick } from "@/ui/logic/click";
 
-import twitch from "~ui/assets/icons/twitch.svg";
-import discord from "~ui/assets/icons/discord.svg";
-import youtube from "~ui/assets/icons/youtube.svg";
-import { Grid, Card, Icon } from "~ui";
-import { $device } from "~ui/logic/screen";
+import twitch from "@/ui/assets/icons/twitch.svg";
+import discord from "@/ui/assets/icons/discord.svg";
+import youtube from "@/ui/assets/icons/youtube.svg";
+import { Grid, Card, Icon } from "@/ui";
+import { $device } from "@/ui/logic/screen";
 
 css`
   [data-contact-card]:hover {

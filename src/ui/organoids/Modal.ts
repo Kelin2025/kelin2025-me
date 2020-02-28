@@ -1,7 +1,7 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { h, spec } from "effector-dom";
 import { createEvent, createStore, guard } from "effector";
-import { Separator } from "~ui/atoms/Separator";
+import { Separator } from "@/ui/atoms/Separator";
 
 type Data = {
   title: Function;

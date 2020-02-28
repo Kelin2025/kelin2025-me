@@ -1,10 +1,10 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { Store } from "effector";
-import { Route } from "~lib/route";
-import { onlyOn } from "~ui/logic/screen";
+import { Route } from "@/lib/route";
+import { onlyOn } from "@/ui/logic/screen";
 import { h, spec, list } from "effector-dom";
 
-import { RouteLink } from "~ui";
+import { RouteLink } from "@/ui";
 
 css`
   [data-mobile-bar] {

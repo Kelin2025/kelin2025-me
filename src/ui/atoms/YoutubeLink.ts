@@ -1,5 +1,5 @@
-import { css } from "~lib/styled";
-import { SpecData } from "~lib/spec";
+import { css } from "@/lib/styled";
+import { SpecData } from "@/lib/spec";
 
 import { Link } from "./Button";
 

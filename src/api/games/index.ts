@@ -24,4 +24,4 @@ export const $gamesList = createStore<Game[]>(
 
 $gamesList.on(gamesLoaded, (state, games) => games);
 
-globalThis.gamesLoaded = gamesLoaded;
+window.gamesLoaded = gamesLoaded;

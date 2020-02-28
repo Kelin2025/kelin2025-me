@@ -1,4 +1,4 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { h, list, spec, remap } from "effector-dom";
 
 import {
@@ -7,10 +7,10 @@ import {
   searchInputChanged
 } from "../logic/search";
 
-import clock from "~ui/assets/icons/clock.svg";
+import clock from "@/ui/assets/icons/clock.svg";
 import { GameData } from "../moleculas/GameData";
 import { GameModal } from "./GameModal";
-import { Card, Grid, Icon, Input, Button, ColumnGrid } from "~ui";
+import { Card, Grid, Icon, Input, Button, ColumnGrid } from "@/ui";
 
 css`
   [data-game] {

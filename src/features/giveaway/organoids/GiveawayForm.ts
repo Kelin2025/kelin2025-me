@@ -1,8 +1,8 @@
 import { combine } from "effector";
 import { list, h, spec } from "effector-dom";
-import { eventWithData } from "~lib/dom-utils";
+import { eventWithData } from "@/lib/dom-utils";
 
-import { $stats, $trueAnswers, $allPassedCount } from "~api/giveaway";
+import { $stats, $trueAnswers, $allPassedCount } from "@/api/giveaway";
 import {
   $isDirty,
   $contactField,
@@ -15,7 +15,7 @@ import {
   submitPressed
 } from "../logic";
 
-import { ColumnGrid, Label, Input, Button, Card } from "~ui";
+import { ColumnGrid, Label, Input, Button, Card } from "@/ui";
 
 export const GiveawayForm = () => {
   ColumnGrid(() => {

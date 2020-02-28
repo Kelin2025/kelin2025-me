@@ -1,11 +1,11 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { createStore, Store } from "effector";
 import { h, list, remap, spec } from "effector-dom";
 
-import avatar from "~ui/assets/icons/avatar.png";
-import { Route } from "~lib/route";
-import { RouteLink, Grid } from "~ui";
-import { onlyOn } from "~ui/logic/screen";
+import avatar from "@/ui/assets/icons/avatar.png";
+import { Route } from "@/lib/route";
+import { RouteLink, Grid } from "@/ui";
+import { onlyOn } from "@/ui/logic/screen";
 
 css`
   [data-aside] {

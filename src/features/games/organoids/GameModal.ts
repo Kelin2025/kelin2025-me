@@ -1,16 +1,16 @@
-import { copyText } from "~lib/copy";
-import { textToHash } from "~lib/search-hash";
-import { eventWithData } from "~lib/dom-utils";
-import { routeChanged } from "~lib/route";
+import { copyText } from "@/lib/copy";
+import { textToHash } from "@/lib/search-hash";
+import { eventWithData } from "@/lib/dom-utils";
+import { routeChanged } from "@/lib/route";
 import { h, remap, spec, list } from "effector-dom";
 import { Store, forward, sample, guard } from "effector";
 
-import { Game } from "~api/games";
+import { Game } from "@/api/games";
 import { gameModalTriggered } from "../logic/search";
 
-import clock from "~ui/assets/icons/clock.svg";
+import clock from "@/ui/assets/icons/clock.svg";
 import { GameData } from "../moleculas/GameData";
-import { Modal, List, Grid, Icon, Button, ColumnGrid, TextBlock } from "~ui";
+import { Modal, List, Grid, Icon, Button, ColumnGrid, TextBlock } from "@/ui";
 
 export const GameModal = (game: Store<Game>) => {
   const paragraphs = game.map(game =>

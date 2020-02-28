@@ -1,9 +1,9 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { list, h, remap, spec } from "effector-dom";
 
-import { $challengesList } from "~api/challenges";
+import { $challengesList } from "@/api/challenges";
 
-import { ChallengeCard } from "~ui";
+import { ChallengeCard } from "@/ui";
 
 css`
   [data-challenges] {

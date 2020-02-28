@@ -1,4 +1,5 @@
-import "./logic/*.ts";
+const includeAll = require.context("./logic", true, /\.ts$/);
+includeAll.keys().forEach(includeAll);
 
 export * from "./atoms/Icon";
 export * from "./atoms/Button";

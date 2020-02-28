@@ -1,12 +1,12 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { Store, combine } from "effector";
-import { specCb, SpecData } from "~lib/spec";
+import { specCb, SpecData } from "@/lib/spec";
 import { h, spec, handler } from "effector-dom";
 
-import { $currentRoute, routeChanged } from "~lib/route";
+import { $currentRoute, routeChanged } from "@/lib/route";
 
 import { Icon } from "./Icon";
-import { eventWithData } from "~lib/dom-utils";
+import { eventWithData } from "@/lib/dom-utils";
 
 type LinkData = {
   icon: string | Store<string>;

@@ -1,5 +1,5 @@
 import { h } from "effector-dom";
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 
 css`
   [data-separator] {

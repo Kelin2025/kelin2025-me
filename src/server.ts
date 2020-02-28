@@ -20,10 +20,10 @@ const compile = template(
 const page = compile({
   inject: `
     <script>
-      globalThis.gamesLoaded(${fs.readFileSync(
+      window.gamesLoaded(${fs.readFileSync(
         path.join(__dirname, "dist/games.json")
       )})
-      globalThis.challengesLoaded(${fs.readFileSync(
+      window.challengesLoaded(${fs.readFileSync(
         path.join(__dirname, "dist/challenges.json")
       )})
     </script>

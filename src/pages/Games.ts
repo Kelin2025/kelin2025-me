@@ -1,9 +1,9 @@
 import { h } from "effector-dom";
 
-import icon from "~ui/assets/icons/gamepad.svg";
+import icon from "@/ui/assets/icons/gamepad.svg";
 
-import { Games } from "~features/games";
-import { PageTitle, PageDescription, PageSubtitle, ColumnGrid } from "~ui";
+import { Games } from "@/features/games";
+import { PageTitle, PageDescription, PageSubtitle, ColumnGrid } from "@/ui";
 
 const title = "Пройденные игры";
 const link = "/games";

@@ -1,8 +1,8 @@
 import { h } from "effector-dom";
 
-import icon from "~ui/assets/icons/portfolio.svg";
+import icon from "@/ui/assets/icons/portfolio.svg";
 
-import { EmailCard, ContactsCards } from "~features/contacts";
+import { EmailCard, ContactsCards } from "@/features/contacts";
 import {
   Card,
   List,
@@ -10,7 +10,7 @@ import {
   PageSubtitle,
   PageDescription,
   ColumnGrid
-} from "~ui";
+} from "@/ui";
 
 const title = "Обо мне";
 const link = "/";
@@ -35,7 +35,7 @@ const view = () => {
         "Метроидвании",
         "Платформеры",
         "Shoot theem all и прочие bullet hell",
-        "Слэшеры"
+        "Слэшеры",
         "Квесты и симуляторы ходьбы"
       ]);
     });

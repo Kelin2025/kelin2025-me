@@ -1,9 +1,9 @@
 import { h } from "effector-dom";
 
-import icon from "~ui/assets/icons/medal.svg";
+import icon from "@/ui/assets/icons/medal.svg";
 
-import { Challenges } from "~features/challenges";
-import { PageTitle, PageDescription } from "~ui";
+import { Challenges } from "@/features/challenges";
+import { PageTitle, PageDescription } from "@/ui";
 
 const title = "Мои Челленджи";
 const link = "/challenges";

@@ -1,6 +1,6 @@
-import { createQueue } from "~lib/enqueue";
-import { createTransition } from "~lib/transition";
-import { $currentRoute } from "~lib/route";
+import { createQueue } from "@/lib/enqueue";
+import { createTransition } from "@/lib/transition";
+import { $currentRoute } from "@/lib/route";
 
 export const pageQueue = createQueue();
 

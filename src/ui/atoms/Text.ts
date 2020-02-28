@@ -1,4 +1,4 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { spec, h } from "effector-dom";
 
 css`

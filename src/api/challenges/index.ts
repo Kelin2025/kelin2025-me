@@ -42,4 +42,4 @@ export const $challengesGroups = $challengesList.map(list =>
 
 $challengesList.on(challengesLoaded, (state, list) => list);
 
-globalThis.challengesLoaded = challengesLoaded;
+window.challengesLoaded = challengesLoaded;

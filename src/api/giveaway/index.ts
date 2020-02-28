@@ -1,7 +1,7 @@
-import { createReq } from "~lib/api";
+import { createReq } from "@/lib/api";
 import { createEffect, createStore, sample, combine, forward } from "effector";
 
-import { $token } from "~api/session";
+import { $token } from "@/api/session";
 
 type GetStats = {
   payload: {};

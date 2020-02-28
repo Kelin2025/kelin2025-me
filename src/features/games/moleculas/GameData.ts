@@ -1,9 +1,9 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { Store } from "effector";
-import { eventWithData } from "~lib/dom-utils";
+import { eventWithData } from "@/lib/dom-utils";
 import { remap, h, spec, list, handler } from "effector-dom";
 
-import { Game } from "~api/games";
+import { Game } from "@/api/games";
 import { searchInputChanged } from "../logic/search";
 
 css`

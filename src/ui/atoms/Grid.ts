@@ -1,5 +1,5 @@
-import { css } from "~lib/styled";
-import { specCb } from "~lib/spec";
+import { css } from "@/lib/styled";
+import { specCb } from "@/lib/spec";
 import { h, spec } from "effector-dom";
 
 css`

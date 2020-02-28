@@ -1,8 +1,8 @@
-import { textToHash, hashToText } from "~lib/search-hash";
-import { routeChanged, $firstRoute } from "~lib/route";
+import { textToHash, hashToText } from "@/lib/search-hash";
+import { routeChanged, $firstRoute } from "@/lib/route";
 import { createEvent, createStore, combine, forward } from "effector";
 
-import { $gamesList } from "~api/games";
+import { $gamesList } from "@/api/games";
 
 export const searchInputChanged = createEvent<string>();
 export const gameFromRouteOpened = createEvent<string>();

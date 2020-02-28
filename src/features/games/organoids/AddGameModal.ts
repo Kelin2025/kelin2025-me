@@ -20,7 +20,7 @@ import {
   ratingChanged
 } from "../logic/add";
 
-import { Modal, Label, Input, Button, CardTitle, ColumnGrid, Grid } from "~ui";
+import { Modal, Label, Input, Button, CardTitle, ColumnGrid, Grid } from "@/ui";
 import { forward } from "effector";
 import { spec } from "effector-dom";
 

@@ -1,9 +1,9 @@
 import { variant, spec, h } from "effector-dom";
 
-import { $currentRoute, Route } from "~lib/route";
+import { $currentRoute, Route } from "@/lib/route";
 
-import { PageRoot } from "~ui";
-import { css } from "~lib/styled";
+import { PageRoot } from "@/ui";
+import { css } from "@/lib/styled";
 
 css`
   [data-content] {

@@ -1,11 +1,11 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 
 import { Card } from "./Card";
 
 import { h, spec } from "effector-dom";
-import { YoutubeLink } from "~ui/atoms/YoutubeLink";
-import { toStore, specCb, SpecData } from "~lib/spec";
-import { onlyOn } from "~ui/logic/screen";
+import { YoutubeLink } from "@/ui/atoms/YoutubeLink";
+import { toStore, specCb, SpecData } from "@/lib/spec";
+import { onlyOn } from "@/ui/logic/screen";
 
 css`
   [data-challenge-card] {

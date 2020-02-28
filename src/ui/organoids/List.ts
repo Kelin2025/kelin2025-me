@@ -1,7 +1,7 @@
-import { css } from "~lib/styled";
+import { css } from "@/lib/styled";
 import { h, spec, list } from "effector-dom";
 import { is, createStore, Store } from "effector";
-import { SpecData, specCb } from "~lib/spec";
+import { SpecData, specCb } from "@/lib/spec";
 
 css`
   [data-list] {

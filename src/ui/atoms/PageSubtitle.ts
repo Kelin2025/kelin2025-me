@@ -1,6 +1,6 @@
 import { h } from "effector-dom";
-import { specCb } from "~lib/spec";
-import { css } from "~lib/styled";
+import { specCb } from "@/lib/spec";
+import { css } from "@/lib/styled";
 
 css`
   [data-page-subtitle] {

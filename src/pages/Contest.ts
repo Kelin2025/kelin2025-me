@@ -1,9 +1,9 @@
 import { h } from "effector-dom";
 
-import icon from "~ui/assets/icons/winner.svg";
-import { GiveawayForm } from "~features/giveaway";
-import { ContactsCards } from "~features/contacts";
-import { PageTitle, PageDescription, ColumnGrid, PageSubtitle } from "~ui";
+import icon from "@/ui/assets/icons/winner.svg";
+import { GiveawayForm } from "@/features/giveaway";
+import { ContactsCards } from "@/features/contacts";
+import { PageTitle, PageDescription, ColumnGrid, PageSubtitle } from "@/ui";
 
 const title = "Розыгрыш Ori";
 const link = "/giveaway";
