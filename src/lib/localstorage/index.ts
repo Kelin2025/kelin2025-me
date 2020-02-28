@@ -18,7 +18,7 @@ setStorageItem.watch(({ key, value, json }) => {
 });
 
 export const getParsedStorageItem = <T>(key: string, def: T): T => {
-  let value = def;
+  let value = typeof def === "function" ? def() : def;
   try {
     value = JSON.parse(localStorage[key]);
   } catch (err) {
