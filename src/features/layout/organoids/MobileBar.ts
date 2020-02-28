@@ -1,9 +1,8 @@
 import { css } from "~lib/styled";
-import { Store, createEvent, sample, combine } from "effector";
+import { Store } from "effector";
 import { Route } from "~lib/route";
 import { onlyOn } from "~ui/logic/screen";
-import { eventWithData } from "~lib/dom-utils";
-import { h, spec, list, handler, node } from "effector-dom";
+import { h, spec, list } from "effector-dom";
 
 import { RouteLink } from "~ui";
 

@@ -7,12 +7,12 @@ import {
   $isDirty,
   $contactField,
   $placeholders,
-  contactChanged,
-  $answersField,
-  answerChanged,
-  submitPressed,
   $isAllValid,
-  $canSubmit
+  $canSubmit,
+  $answersField,
+  contactChanged,
+  answerChanged,
+  submitPressed
 } from "../logic";
 
 import { ColumnGrid, Label, Input, Button, Card } from "~ui";

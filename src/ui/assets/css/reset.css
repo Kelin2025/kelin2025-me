@@ -46,16 +46,16 @@ a {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Handle on active */
 ::-webkit-scrollbar-thumb:active {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(255, 255, 255, 0.5);
 }

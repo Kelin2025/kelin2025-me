@@ -11,11 +11,11 @@ export const $isDirty = createStore(false);
 export const $contactField = createStore("");
 export const $answersField = createStore(["", "", "", "", ""]);
 export const $placeholders = createStore([
+  "Сей ключ был там, откуда ты явился",
   "Ответ хранит сосуд, что чист внутри",
   "Его найдешь ты в обители хранителя",
   "Сей ключ скажу я лично, увидь лишь ты меня",
-  "Меня увидит лишь находчивый охотник",
-  "Просто напиши ключ лоооол"
+  "Меня увидит лишь находчивый охотник"
 ]);
 export const $canSubmit = combine(
   $contactField,
