@@ -67,6 +67,7 @@ app.get("/api/stats", async (req, res) => {
   res.json({
     error: false,
     stats,
+    passed: users.filter(user => user.answers.every(Boolean)).length,
     total: users.length
   });
 });
