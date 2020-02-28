@@ -1,5 +1,5 @@
 import { createReq } from "~lib/api";
-import { getParsedStorageItem, createStorageSetter } from "~/lib/localStorage";
+import { getParsedStorageItem, createStorageSetter } from "~lib/localstorage";
 import { createEffect, createStore, sample, combine, forward } from "effector";
 
 import { $token } from "~api/session";
@@ -43,16 +43,7 @@ export const getGiveawayResults = createEffect<
 });
 
 export const $contact = createStore<string>("");
-
-export const $trueAnswers = createStore(
-  getParsedStorageItem<string[]>("giveaway1.trueAnswers", [
-    null,
-    null,
-    null,
-    null,
-    null
-  ])
-);
+export const $trueAnswers = createStore([null, null, null, null, null]);
 
 $contact.on(getGiveawayResults.done, (state, { result }) => result.contact);
 
@@ -63,14 +54,6 @@ $trueAnswers
 sample({
   source: combine({ uid: $token }),
   target: getGiveawayResults
-});
-
-forward({
-  from: $trueAnswers.updates,
-  to: createStorageSetter<string[]>({
-    key: "giveaway1.trueAnswers",
-    json: true
-  })
 });
 
 getGiveawayResults({ uid: $token.getState() });

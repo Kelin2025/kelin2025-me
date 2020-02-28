@@ -13,12 +13,19 @@ css`
     display: inline-block;
     font: 500 16px/16px "Segoe UI", sans-serif;
     padding: 10px 20px;
-    transition: opacity 0.1s ease-out;
+    transition: opacity 0.1s ease-out, color 0.2s ease-out,
+      background 0.2s ease-out;
     text-align: center;
   }
 
-  [data-button]:hover,
-  [data-button]:focus {
+  [data-button][disabled] {
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  [data-button]:not([disabled]):hover,
+  [data-button]:not([disabled]):focus {
     outline: none;
     opacity: 0.75;
   }

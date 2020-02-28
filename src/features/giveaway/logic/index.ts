@@ -1,4 +1,4 @@
-import { createEvent, createStore, sample } from "effector";
+import { createEvent, createStore, sample, combine } from "effector";
 
 import { $token } from "~api/session";
 import { $contact, $trueAnswers, checkGiveaway } from "~api/giveaway";
@@ -17,6 +17,11 @@ export const $placeholders = createStore([
   "Меня увидит лишь находчивый охотник",
   "Просто напиши ключ лоооол"
 ]);
+export const $canSubmit = combine(
+  $contactField,
+  $answersField,
+  (contact, answers) => contact && answers.some(Boolean)
+);
 export const $isAllValid = $trueAnswers.map(answers => answers.every(Boolean));
 
 $contactField

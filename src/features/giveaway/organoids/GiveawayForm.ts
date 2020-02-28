@@ -11,7 +11,8 @@ import {
   $answersField,
   answerChanged,
   submitPressed,
-  $isAllValid
+  $isAllValid,
+  $canSubmit
 } from "../logic";
 
 import { ColumnGrid, Label, Input, Button } from "~ui";
@@ -23,7 +24,7 @@ export const GiveawayForm = () => {
         { value: $contactField, change: contactChanged },
         {
           attr: { disabled: $isAllValid },
-          data: { valid: $isAllValid, dirty: true }
+          data: { valid: $isAllValid, dirty: $isAllValid }
         }
       );
     });
@@ -68,7 +69,10 @@ export const GiveawayForm = () => {
   });
   Button(
     { type: "primary", text: "Отправить", click: submitPressed },
-    { visible: $isAllValid.map(isAllValid => !isAllValid) }
+    {
+      attr: { disabled: $canSubmit.map(canSubmit => !canSubmit) },
+      visible: $isAllValid.map(isAllValid => !isAllValid)
+    }
   );
   h("div", {
     visible: $isAllValid,
