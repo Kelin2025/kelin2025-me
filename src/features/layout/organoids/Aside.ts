@@ -53,6 +53,14 @@ css`
     background: #232628;
   }
 
+  [data-aside-link][data-highlight] {
+    color: #ffc800;
+  }
+
+  [data-aside-link][data-highlight][data-active] {
+    background: #715709;
+  }
+
   /* [data-device="phone"] [data-aside] {
     border-radius: 10px 10px 0 0;
     position: fixed;
@@ -85,6 +93,9 @@ export const Aside = (routes: Store<Route[]>) => {
           href: remap(store, "link")
         },
         () => {
+          spec({
+            data: { highlight: store.map(link => link.link === "/giveaway") }
+          });
           spec({ data: { asideLink: true } });
         }
       );
