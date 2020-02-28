@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server -c webpack.config.js",
     "build:data": "copyfiles -f src/db/*.json dist",
-    "build:client": "webpack -c webpack.config.js --mode=production --output-public-path=/public",
+    "build:client": "webpack -c webpack.config.js --mode=production --output-public-path=/public/",
     "build:server": "parcel build -t node src/server.ts --out-dir . --out-file server.js --no-source-maps",
     "build": "npm run build:client && npm run build:server && npm run build:data",
     "start": "node server.js",

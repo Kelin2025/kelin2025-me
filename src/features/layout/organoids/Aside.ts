@@ -1,5 +1,5 @@
 import { css } from "@/lib/styled";
-import { createStore, Store } from "effector";
+import { Store } from "effector";
 import { h, list, remap, spec } from "effector-dom";
 
 import avatar from "@/ui/assets/icons/avatar.png";
