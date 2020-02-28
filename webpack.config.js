@@ -59,10 +59,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       chunks: ["main"],
       filename: "index.html",
-      template: "./src/index.html",
-      templateParameters: {
-        inject: "${inject}"
-      }
+      template: "./src/index.ejs",
+      inject: false
     })
   ],
   devServer: {
