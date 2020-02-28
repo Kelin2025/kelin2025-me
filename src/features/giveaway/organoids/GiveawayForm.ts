@@ -44,7 +44,13 @@ export const GiveawayForm = () => {
             spec({
               data: {
                 valid: $isValid,
-                dirty: combine($isDirty, $trueAnswer, (a, b) => a || b)
+                dirty: combine(
+                  $isDirty,
+                  $trueAnswer,
+                  store,
+                  (isDirty, trueAnswer, state) =>
+                    state && (isDirty || !!trueAnswer) ? true : false
+                )
               },
               attr: {
                 disabled: $isValid,
@@ -55,8 +61,8 @@ export const GiveawayForm = () => {
         );
         h("div", () => {
           spec({
-            text: "ТЫ ЗАЧЕМ ЩУРИШЬСЯ",
-            visible: store.map(() => index === 3),
+            text: "КЛЮЧ: IAMAHUNTERPOG",
+            visible: store.map(() => index === 4),
             style: {
               color: "rgba(0,0,0,0.07)",
               marginTop: "-30px",
