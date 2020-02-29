@@ -1,0 +1,11 @@
+[data-grid] {
+  --gap: 16px;
+  --flow: row;
+  --align: start;
+  align-items: var(--align);
+  display: grid;
+  grid-gap: var(--gap);
+  grid-auto-flow: var(--flow);
+  grid-template-columns: var(--cols);
+  justify-content: var(--justify);
+}

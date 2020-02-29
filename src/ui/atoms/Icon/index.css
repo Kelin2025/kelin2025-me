@@ -1,0 +1,10 @@
+[data-icon] {
+  --size: 16px;
+  display: inline-block;
+  height: var(--size);
+  width: var(--size);
+  line-height: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+  transition: color 0.2s ease-out;
+}

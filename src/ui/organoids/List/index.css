@@ -1,0 +1,29 @@
+[data-list] {
+  margin: 0;
+  padding: 0;
+  line-height: 2;
+}
+
+[data-list="square"] li {
+  list-style: square inside;
+}
+
+[data-list="plus"] li,
+[data-list="minus"] li {
+  list-style: none;
+}
+
+[data-list="plus"] li:before,
+[data-list="minus"] li:before {
+  padding-right: 10px;
+  font-weight: bold;
+  vertical-align: 1px;
+}
+
+[data-list="plus"] li:before {
+  content: "+";
+}
+
+[data-list="minus"] li:before {
+  content: "-";
+}

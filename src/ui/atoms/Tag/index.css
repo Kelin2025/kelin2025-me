@@ -1,0 +1,9 @@
+[data-tag] {
+  /* background: var(--bgColor); */
+  border-radius: 10px;
+  /* color: var(--color); */
+  color: #a6a6a6;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -1,0 +1,16 @@
+[data-page-description] {
+  font-size: 20px;
+  margin: 20px 0 40px;
+}
+
+[data-page-description] > p:first-child {
+  margin-top: 0;
+}
+
+[data-page-description] > p:last-child {
+  margin-bottom: 0;
+}
+
+[data-device="phone"] [data-page-description] {
+  font-size: 16px;
+}

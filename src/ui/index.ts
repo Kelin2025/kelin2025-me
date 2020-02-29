@@ -1,5 +1,7 @@
-const includeAll = require.context("./logic", true, /\.ts$/);
-includeAll.keys().forEach(includeAll);
+const includeAllLogic = require.context("./logic", true, /\.ts$/);
+includeAllLogic.keys().forEach(includeAllLogic);
+const includeAllStyles = require.context(".", true, /\.css$/);
+includeAllStyles.keys().forEach(includeAllStyles);
 
 export * from "./atoms/Icon";
 export * from "./atoms/Button";
@@ -15,7 +17,7 @@ export * from "./atoms/Input";
 export * from "./atoms/Text";
 export * from "./atoms/Label";
 
-export * from "./moleculas/ButtonsStack";
+export * from "./moleculas/ButtonStack";
 
 export * from "./organoids/Card";
 export * from "./organoids/ChallengeCard";

@@ -1,0 +1,6 @@
+[data-card] {
+  border-radius: 10px;
+  background: var(--color-card-bg);
+  padding: 20px;
+  transition: background 0.2s ease-out;
+}
