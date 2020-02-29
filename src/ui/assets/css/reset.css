@@ -61,6 +61,6 @@ a {
   background: rgba(255, 255, 255, 0.5);
 }
 
-[data-device="desktop"] body {
+body[data-device="desktop"] {
   background-size: 100% 100%;
 }
