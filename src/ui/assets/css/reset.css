@@ -16,7 +16,8 @@ body,
 
 body {
   font: 16px "Segoe UI", sans-serif;
-  background: #141516;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("https://images7.alphacoders.com/927/927772.jpg") fixed;
   color: #f2f3f5;
   --color-link-disabled: #74808b;
   --color-card-bg: #1e2124;
@@ -58,4 +59,8 @@ a {
 /* Handle on active */
 ::-webkit-scrollbar-thumb:active {
   background: rgba(255, 255, 255, 0.5);
+}
+
+[data-device="desktop"] body {
+  background-size: 100% 100%;
 }
