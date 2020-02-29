@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
@@ -25,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ["style-loader", "css-loader"]
+        loaders: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /\.(png|woff2)$/,
@@ -52,6 +53,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new webpack.IgnorePlugin({
       // Workaround for broken libraries
       resourceRegExp: /^(fs|path)$/
