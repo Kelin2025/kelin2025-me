@@ -30,9 +30,9 @@ export const TagsFilter = () => {
   ColumnGrid(() => {
     FiltersList({ title: "Жанры", filter: tag => tag.type === "genre" });
     FiltersList({ title: "Вид игры", filter: tag => tag.type === "view" });
-    FiltersList({
-      title: "Сложность",
-      filter: tag => tag.type === "difficulty"
-    });
+    // FiltersList({
+    //   title: "Сложность",
+    //   filter: tag => tag.type === "difficulty"
+    // });
   });
 };
