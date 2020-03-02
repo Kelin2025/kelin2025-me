@@ -19,13 +19,21 @@ export const createGrid = ({ gap = 16, cols }) => {
 type Data = {
   gap?: number;
   cols?: number | string;
+  rows?: number | string;
   flow?: "row" | "column";
   align?: "start" | "center" | "end";
   justify?: "start" | "center" | "end" | "space-between";
 };
 
 export const Grid = (
-  { gap = 16, cols, flow = "row", align = "start", justify = "start" }: Data,
+  {
+    gap = 16,
+    cols,
+    rows,
+    flow = "row",
+    align = "start",
+    justify = "start"
+  }: Data,
   child
 ) => {
   h("div", () => {
@@ -36,7 +44,8 @@ export const Grid = (
         flow,
         align,
         justify,
-        cols: typeof cols === "number" ? `repeat(${cols}, 1fr)` : cols
+        cols: typeof cols === "number" ? `repeat(${cols}, 1fr)` : cols,
+        rows: typeof rows === "number" ? `repeat(${rows}, 1fr)` : rows
       }
     });
     specCb(child);
@@ -44,3 +53,13 @@ export const Grid = (
 };
 
 export const ColumnGrid = createGrid({ cols: 1 });
+
+export const GridArea = (area: string, cb: Function) => {
+  h("div", () => {
+    specCb({
+      data: { gridArea: true },
+      styleVar: { area }
+    });
+    cb();
+  });
+};

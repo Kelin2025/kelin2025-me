@@ -1,16 +1,11 @@
 import { css } from "@/lib/styled";
-import { h, list, spec, remap } from "effector-dom";
+import { spec } from "effector-dom";
+import { device } from "@/ui/logic/screen";
 
-import {
-  $searchInput,
-  $filteredGames,
-  searchInputChanged
-} from "../logic/search";
-
-import clock from "@/ui/assets/icons/clock.svg";
-import { GameData } from "../moleculas/GameData";
-import { GameModal } from "./GameModal";
-import { Card, Grid, Icon, Input, Button, ColumnGrid } from "@/ui";
+import { NameFilter } from "../moleculas/NameFilter";
+import { TagsFilter } from "../moleculas/TagsFilter";
+import { FilteredGames } from "./FilteredGames";
+import { Grid, ColumnGrid, GridArea } from "@/ui";
 
 css`
   [data-game] {
@@ -32,40 +27,32 @@ css`
 `;
 
 export const Games = () => {
-  ColumnGrid(() => {
-    Input(
-      { value: $searchInput, change: searchInputChanged },
-      {
-        attr: { placeholder: "Поиск по играм..." }
-      }
-    );
-    ColumnGrid(() => {
-      list($filteredGames, ({ store }) => {
-        const gameModal = GameModal(store);
-        Card(() => {
-          spec({ data: { game: true } });
-          // h("img", {
-          //   data: { gameIcon: true },
-          //   attr: { src: remap(store, "image") }
-          // });
-          h("div", () => {
-            GameData(store);
-          });
-          Grid({ flow: "column", align: "center" }, () => {
-            spec({ data: { gameControls: true } });
-            Grid({ flow: "column", gap: 8, align: "center" }, () => {
-              spec({ data: { gameHours: true } });
-              Icon({ link: clock, scale: 1.5 });
-              h("span", { text: store.map(game => `${game.hours}ч`) });
-            });
-            Button({
-              type: "primary",
-              text: "Подробнее",
-              click: gameModal.open
-            });
-          });
+  device({
+    desktop: () => {
+      Grid({}, () => {
+        spec({
+          styleVar: {
+            cols: "1fr 450px",
+            rows: "max-content 1fr",
+            areas: '"search filter" "games filter"'
+          }
+        });
+        GridArea("search", () => {
+          NameFilter();
+        });
+        GridArea("filter", () => {
+          TagsFilter();
+        });
+        GridArea("games", () => {
+          FilteredGames();
         });
       });
-    });
+    },
+    phone: () => {
+      ColumnGrid(() => {
+        NameFilter();
+        FilteredGames();
+      });
+    }
   });
 };

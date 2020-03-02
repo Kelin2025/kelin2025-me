@@ -6,6 +6,7 @@ includeAllStyles.keys().forEach(includeAllStyles);
 export * from "./atoms/Icon";
 export * from "./atoms/Button";
 export * from "./atoms/CardTitle";
+export * from "./atoms/Checkbox";
 export * from "./atoms/PageTitle";
 export * from "./atoms/PageSubtitle";
 export * from "./atoms/PageDescription";

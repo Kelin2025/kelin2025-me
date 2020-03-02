@@ -31,8 +31,7 @@ export const GameData = (store: Store<Game>) => {
   h("div", () => {
     spec({ data: { gameTags: true } });
     h("b", () => {
-      h("a", {
-        attr: { href: "#!" },
+      h("span", {
         text: store.map(game => `${game.rating}`)
       });
       h("span", {
@@ -40,16 +39,16 @@ export const GameData = (store: Store<Game>) => {
       });
     });
     list(tags, ({ store, index }) => {
-      const click = eventWithData<MouseEvent>(
-        store.map(tag => tag.value),
-        searchInputChanged
-      );
-      h("a", () => {
+      // const click = eventWithData<MouseEvent>(
+      //   store.map(tag => tag.value),
+      //   searchInputChanged
+      // );
+      h("span", () => {
         spec({
-          attr: { href: "#!" },
+          // attr: { href: "#!" },
           text: remap(store, "value")
         });
-        handler({ prevent: true }, { click });
+        // handler({ prevent: true }, { click });
       });
       h("span", {
         text: ", ",

@@ -2,10 +2,21 @@
   --gap: 16px;
   --flow: row;
   --align: start;
+  --justify: start;
+  --areas: initial;
+  --flow: row;
+  --cols: initial;
+  --rows: initial;
   align-items: var(--align);
   display: grid;
   grid-gap: var(--gap);
+  grid-template-areas: var(--areas);
   grid-auto-flow: var(--flow);
   grid-template-columns: var(--cols);
+  grid-template-rows: var(--rows);
   justify-content: var(--justify);
+}
+
+[data-grid-area] {
+  grid-area: var(--area);
 }

@@ -3,11 +3,11 @@ import { h } from "effector-dom";
 import icon from "@/ui/assets/icons/gamepad.svg";
 
 import { Games } from "@/features/games";
-import { PageTitle, PageDescription, PageSubtitle, ColumnGrid } from "@/ui";
+import { PageTitle, PageDescription } from "@/ui";
 
 const title = "Пройденные игры";
 const link = "/games";
-const meta = { icon, width: 800 };
+const meta = { icon, width: 1200 };
 
 const view = () => {
   PageTitle("Пройденные игры (Beta)");
@@ -25,10 +25,7 @@ const view = () => {
         "Так же вы можете скопировать ссылку на игру и поделиться ей с другими"
     });
   });
-  ColumnGrid(() => {
-    PageSubtitle("Моя коллекция");
-    Games();
-  });
+  Games();
 };
 
 export const GamesPage = { title, link, view, meta };
