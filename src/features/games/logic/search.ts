@@ -1,4 +1,4 @@
-import { textToHash, hashToText } from "@/lib/search-hash";
+import { textToHash, hashToText } from "@/lib/hash-parser";
 import { routeChanged, $firstRoute } from "@/lib/route";
 import { createEvent, createStore, combine, forward } from "effector";
 

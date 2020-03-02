@@ -1,5 +1,5 @@
 import { copyText } from "@/lib/copy";
-import { textToHash } from "@/lib/search-hash";
+import { textToHash } from "@/lib/hash-parser";
 import { eventWithData } from "@/lib/dom-utils";
 import { routeChanged } from "@/lib/route";
 import { h, remap, spec, list } from "effector-dom";
