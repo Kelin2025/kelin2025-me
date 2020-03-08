@@ -6,8 +6,8 @@ import template from "lodash.template";
 import zip from "lodash.zip";
 import bodyParser from "body-parser";
 import Ajv from "ajv";
-import { CodeModel } from "~mongo/codes";
-import { RecordModel } from "~mongo/records";
+import { CodeModel } from "./mongo/codes";
+import { RecordModel } from "./mongo/records";
 import "./mongo";
 
 const app = express();
@@ -124,6 +124,71 @@ app.post("/api/check", async (req, res) => {
     error: false,
     answers: results
   });
+});
+
+app.get("/api/contestants", async (req, res) => {
+  const list = await RecordModel.aggregate([
+    {
+      $unwind: {
+        path: "$answers",
+        includeArrayIndex: "idx",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: {
+          contact: "$contact",
+          idx: "$idx"
+        },
+        all_answers: {
+          $push: "$answers"
+        }
+      }
+    },
+    {
+      $sort: {
+        "_id.idx": 1,
+        "_id.contact": 1
+      }
+    },
+    {
+      $group: {
+        _id: "$_id.contact",
+        answers: {
+          $push: {
+            $reduce: {
+              input: "$all_answers",
+              initialValue: null,
+              in: {
+                $cond: {
+                  if: {
+                    $and: [
+                      { $eq: ["$$value", null] },
+                      { $ne: ["$$this", null] }
+                    ]
+                  },
+                  then: "$$this",
+                  else: "$$value"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        contact: "$_id",
+        passed: {
+          $allElementsTrue: "$answers"
+        }
+      }
+    }
+  ]).exec();
+
+  res.json(list);
 });
 
 app.get("/twitch", (req, res) => {
