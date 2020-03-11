@@ -1,4 +1,4 @@
-import { createEvent } from "effector";
+import { createEvent, createStore } from "effector";
 
 export const setStorageItem = createEvent<{
   key: string;
@@ -29,4 +29,17 @@ export const getParsedStorageItem = <T>(key: string, def: T): T => {
     });
   }
   return value;
+};
+
+export const createStorage = ({ key, value, json }) => {
+  let initValue = json
+    ? getParsedStorageItem(key, value)
+    : localStorage[key] || value;
+  const store = createStore(initValue);
+
+  store.updates.watch(value => {
+    setStorageItem({ key, value, json });
+  });
+
+  return store;
 };
