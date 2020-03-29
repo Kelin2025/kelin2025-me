@@ -9,6 +9,7 @@ import Ajv from "ajv";
 import { CodeModel } from "./mongo/codes";
 import { RecordModel } from "./mongo/records";
 import "./mongo";
+import { SteamStats } from "./mongo/steamStats";
 
 const app = express();
 const ajv = new Ajv();
@@ -213,6 +214,26 @@ app.get("/discord", (req, res) => {
 
 app.get("/donate", (req, res) => {
   res.redirect("https://www.donationalerts.com/r/kelin2025");
+});
+
+app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
+  await SteamStats.updateOne(
+    {
+      app_id: req.params.game_id
+    },
+    {
+      $setOnInsert: {
+        app_id: req.params.game_id
+      },
+      $inc: {
+        clicks: 1
+      }
+    },
+    {
+      upsert: true
+    }
+  ).exec();
+  res.redirect(301, `https://store.steampowered.com/app/${req.params.game_id}`);
 });
 
 app.get("*", (req, res) => {
