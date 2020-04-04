@@ -212,7 +212,7 @@ app.get("/youtube/sponsorship", (req, res) => {
 });
 
 app.get("/discord", (req, res) => {
-  res.redirect(301, "https://discord.gg/ZNxXVs9");
+  res.redirect(302, "https://discord.gg/ZNxXVs9");
 });
 
 app.get("/donate", (req, res) => {
