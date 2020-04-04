@@ -193,27 +193,30 @@ app.get("/api/contestants", async (req, res) => {
 });
 
 app.get("/twitch", (req, res) => {
-  res.redirect("https://twitch.tv/kelin2025");
+  res.redirect(301, "https://twitch.tv/kelin2025");
 });
 
 app.get("/twitch/subscribe", (req, res) => {
-  res.redirect("https://twitch.tv/products/kelin2025");
+  res.redirect(301, "https://twitch.tv/products/kelin2025");
 });
 
 app.get("/youtube", (req, res) => {
-  res.redirect("https://youtube.com/kelin2025");
+  res.redirect(301, "https://youtube.com/kelin2025");
 });
 
 app.get("/youtube/sponsorship", (req, res) => {
-  res.redirect("https://youtube.com/channel/UCGEDINS5Pz6FTVaZqfU6kMg/join");
+  res.redirect(
+    301,
+    "https://youtube.com/channel/UCGEDINS5Pz6FTVaZqfU6kMg/join"
+  );
 });
 
 app.get("/discord", (req, res) => {
-  res.redirect("https://discord.gg/ZNxXVs9");
+  res.redirect(301, "https://discord.gg/ZNxXVs9");
 });
 
 app.get("/donate", (req, res) => {
-  res.redirect("https://www.donationalerts.com/r/kelin2025");
+  res.redirect(301, "https://www.donationalerts.com/r/kelin2025");
 });
 
 app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
