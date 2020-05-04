@@ -6,6 +6,7 @@ import template from "lodash.template";
 import zip from "lodash.zip";
 import bodyParser from "body-parser";
 import Ajv from "ajv";
+import fetch from "node-fetch";
 import { CodeModel } from "./mongo/codes";
 import { RecordModel } from "./mongo/records";
 import "./mongo";
@@ -130,7 +131,8 @@ app.get("/api/steam/:id", async (req, res) => {
       game: json,
     });
   } catch (err) {
-    res.status(403);
+    console.log(err);
+    res.status(400);
     res.send(null);
   }
 });
