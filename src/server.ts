@@ -229,6 +229,13 @@ app.get("/donate", (req, res) => {
   res.redirect(301, "https://www.donationalerts.com/r/kelin2025");
 });
 
+app.get("/requests", async (req, res) => {
+  res.redirect(
+    302,
+    "https://www.notion.so/kelin2025/448abae4a5654b7496c85745030a0152"
+  );
+});
+
 app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
   await SteamStats.updateOne(
     {
