@@ -119,6 +119,25 @@ app.post("/api/check", async (req, res) => {
   });
 });
 
+const STEAM_API_KEY = "1DF91CA29B8B5A056B77A5FFA3B47EEE";
+
+app.get("/api/steam/:id", async (req, res) => {
+  try {
+    const q = await fetch(
+      `https://store.steampowered.com/api/appdetails?appids=${req.params.id}&format=json&key=${STEAM_API_KEY}`
+    );
+    const json = await q.json();
+    res.status(200).json({
+      error: false,
+      game: json,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    res.send(null);
+  }
+});
+
 app.get("/api/contestants", async (req, res) => {
   const list = await RecordModel.aggregate([
     {
@@ -192,85 +211,99 @@ app.get("/api/games", async (req, res) => {
 app.post("/api/refreshGames", async (req, res) => {
   if (req.body.password !== process.env.API_SECRET) res.sendStatus(404);
 
-  const games: number[] = req.body.games;
+  try {
+    const games: number[] = req.body.games;
 
-  let icons = await fetch(
-    "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1" +
-      "?key=1DF91CA29B8B5A056B77A5FFA3B47EEE&steamid=76561198148828491&" +
-      "include_appinfo=1&include_played_free_games=1&include_free_sub=1&format=json",
-    { method: "GET" }
-  ).then((x) => x.json());
+    let icons = await fetch(
+      "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1" +
+        "?key=1DF91CA29B8B5A056B77A5FFA3B47EEE&steamid=76561198148828491&" +
+        "include_appinfo=1&include_played_free_games=1&include_free_sub=1&format=json",
+      { method: "GET" }
+    ).then((x) => x.json());
 
-  const abouts = await Promise.all(
-    games.map((x) =>
-      fetch(
-        `https://store.steampowered.com/api/appdetails` +
-          `?appids=${x}&filters=basic&cc=ru&l=ru`,
-        {
-          method: "GET",
-          headers: {
-            "Accept-Language": "ru-RU, ru;q=0.9, en;q=0.5, *;q=0.3",
-          },
-        }
+    const abouts = await Promise.all(
+      games.map((x) =>
+        fetch(
+          `https://store.steampowered.com/api/appdetails` +
+            `?key=${STEAM_API_KEY}&appids=${x}&filters=basic&cc=ru&l=ru`,
+          {
+            method: "GET",
+            headers: {
+              "Accept-Language": "ru-RU, ru;q=0.9, en;q=0.5, *;q=0.3",
+            },
+          }
+        )
+          .then((r) => r.json())
+          .then((e) => ({ id: x, about: e[x].data.short_description }))
       )
-        .then((r) => r.json())
-        .then((e) => ({ id: x, about: e[x].data.short_description }))
-    )
-  );
+    );
 
-  const data: IGame[] = (icons.response.games as any[])
-    .filter((x) => games.includes(x.appid))
-    .map<IGame>((x) => ({
-      tier: "Meme",
-      review: "",
-      appid: x.appid,
-      name: x.name,
-      steam: {
-        icon: x.img_icon_url,
-        logo: x.img_logo_url,
-        about: abouts.find((e) => e.id === x.appid).about,
+    const data: IGame[] = (icons.response.games as any[])
+      .filter((x) => games.includes(x.appid))
+      .map<IGame>((x) => ({
+        tier: "Meme",
+        review: "",
+        appid: x.appid,
+        name: x.name,
+        steam: {
+          icon: x.img_icon_url,
+          logo: x.img_logo_url,
+          about: abouts.find((e) => e.id === x.appid).about,
+        },
+      }));
+
+    const inserts = data.map((x) => ({
+      updateOne: {
+        filter: { appid: x.appid },
+        update: x,
+        upsert: true,
       },
     }));
 
-  const inserts = data.map((x) => ({
-    updateOne: {
-      filter: { appid: x.appid },
-      update: x,
-      upsert: true,
-    },
-  }));
+    await GameModel.bulkWrite(inserts, {
+      ordered: false,
+      w: 1,
+      bypassDocumentValidation: true,
+    });
 
-  await GameModel.bulkWrite(inserts, {
-    ordered: false,
-    w: 1,
-    bypassDocumentValidation: true,
-  });
-
-  res.json({ success: true });
+    res.json({ success: true });
+  } catch (e) {
+    res.json({ success: false, error: e.toString() });
+  }
 });
 
 app.get("/twitch", (req, res) => {
-  res.redirect("https://twitch.tv/kelin2025");
+  res.redirect(301, "https://twitch.tv/kelin2025");
 });
 
 app.get("/twitch/subscribe", (req, res) => {
-  res.redirect("https://twitch.tv/products/kelin2025");
+  res.redirect(301, "https://twitch.tv/products/kelin2025");
 });
 
 app.get("/youtube", (req, res) => {
-  res.redirect("https://youtube.com/kelin2025");
+  res.redirect(301, "https://youtube.com/kelin2025");
 });
 
 app.get("/youtube/sponsorship", (req, res) => {
-  res.redirect("https://youtube.com/channel/UCGEDINS5Pz6FTVaZqfU6kMg/join");
+  res.redirect(
+    301,
+    "https://youtube.com/channel/UCGEDINS5Pz6FTVaZqfU6kMg/join"
+  );
 });
 
 app.get("/discord", (req, res) => {
-  res.redirect("https://discord.gg/ZNxXVs9");
+  res.redirect(302, "https://discord.gg/ZNxXVs9");
 });
 
 app.get("/donate", (req, res) => {
-  res.redirect("https://www.donationalerts.com/r/kelin2025");
+  res.redirect(301, "https://www.donationalerts.com/r/kelin2025");
+});
+
+app.get("/requests", async (req, res) => {
+  res.redirect(
+    302,
+    "https://www.notion.so/kelin2025/448abae4a5654b7496c85745030a0152"
+  );
 });
 
 app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
