@@ -5,6 +5,7 @@ export interface IGame {
   name: string;
   tier: "S" | "A" | "B" | "C" | "D" | "E" | "Meme";
   review: string;
+  video: null | String;
   steam: {
     about: string;
     icon: string;
@@ -24,6 +25,7 @@ const GameSchema = new Schema({
     enum: ["S", "A", "B", "C", "D", "E", "Meme"],
   },
   review: String,
+  video: String,
   steam: {
     about: String,
     icon: String,

@@ -209,67 +209,63 @@ app.get("/api/games", async (req, res) => {
 });
 
 app.post("/api/refreshGames", async (req, res) => {
-  if (req.body.password !== process.env.API_SECRET) res.sendStatus(404);
+  if (req.body.password !== process.env.API_SECRET) return res.sendStatus(404);
+  const games: number[] = req.body.games;
 
-  try {
-    const games: number[] = req.body.games;
+  let icons = await fetch(
+    "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1" +
+      "?key=1DF91CA29B8B5A056B77A5FFA3B47EEE&steamid=76561198148828491&" +
+      "include_appinfo=1&include_played_free_games=1&include_free_sub=1&format=json",
+    { method: "GET" }
+  ).then((x) => x.json());
 
-    let icons = await fetch(
-      "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1" +
-        "?key=1DF91CA29B8B5A056B77A5FFA3B47EEE&steamid=76561198148828491&" +
-        "include_appinfo=1&include_played_free_games=1&include_free_sub=1&format=json",
-      { method: "GET" }
-    ).then((x) => x.json());
-
-    const abouts = await Promise.all(
-      games.map((x) =>
-        fetch(
-          `https://store.steampowered.com/api/appdetails` +
-            `?key=${STEAM_API_KEY}&appids=${x}&filters=basic&cc=ru&l=ru`,
-          {
-            method: "GET",
-            headers: {
-              "Accept-Language": "ru-RU, ru;q=0.9, en;q=0.5, *;q=0.3",
-            },
-          }
-        )
-          .then((r) => r.json())
-          .then((e) => ({ id: x, about: e[x].data.short_description }))
+  const abouts = await Promise.all(
+    games.map((x) =>
+      fetch(
+        `https://store.steampowered.com/api/appdetails` +
+          `?key=${STEAM_API_KEY}&appids=${x}&filters=basic&cc=ru&l=ru`,
+        {
+          method: "GET",
+          headers: {
+            "Accept-Language": "ru-RU, ru;q=0.9, en;q=0.5, *;q=0.3",
+          },
+        }
       )
-    );
+        .then((r) => r.json())
+        .then((e) => ({ id: x, about: e[x].data.short_description }))
+    )
+  );
 
-    const data: IGame[] = (icons.response.games as any[])
-      .filter((x) => games.includes(x.appid))
-      .map<IGame>((x) => ({
-        tier: "Meme",
-        review: "",
-        appid: x.appid,
-        name: x.name,
-        steam: {
-          icon: x.img_icon_url,
-          logo: x.img_logo_url,
-          about: abouts.find((e) => e.id === x.appid).about,
-        },
-      }));
-
-    const inserts = data.map((x) => ({
-      updateOne: {
-        filter: { appid: x.appid },
-        update: x,
-        upsert: true,
+  const data: IGame[] = (icons.response.games as any[])
+    .filter((x) => games.includes(x.appid))
+    .map<IGame>((x) => ({
+      tier: "Meme",
+      review: "",
+      appid: x.appid,
+      name: x.name,
+      video: null,
+      steam: {
+        icon: x.img_icon_url,
+        logo: x.img_logo_url,
+        about: abouts.find((e) => e.id === x.appid).about,
       },
     }));
 
-    await GameModel.bulkWrite(inserts, {
-      ordered: false,
-      w: 1,
-      bypassDocumentValidation: true,
-    });
+  const inserts = data.map((x) => ({
+    updateOne: {
+      filter: { appid: x.appid },
+      update: x,
+      upsert: true,
+    },
+  }));
 
-    res.json({ success: true });
-  } catch (e) {
-    res.json({ success: false, error: e.toString() });
-  }
+  await GameModel.bulkWrite(inserts, {
+    ordered: false,
+    w: 1,
+    bypassDocumentValidation: true,
+  });
+
+  res.json({ success: true });
 });
 
 app.get("/twitch", (req, res) => {
