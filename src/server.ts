@@ -6,10 +6,12 @@ import template from "lodash.template";
 import zip from "lodash.zip";
 import bodyParser from "body-parser";
 import Ajv from "ajv";
+import fetch from "node-fetch";
 import { CodeModel } from "./mongo/codes";
 import { RecordModel } from "./mongo/records";
 import "./mongo";
 import { SteamStats } from "./mongo/steamStats";
+import { GameModel, IGame } from "./mongo/games";
 
 const app = express();
 const ajv = new Ajv();
@@ -28,7 +30,7 @@ const page = compile({
         path.join(__dirname, "dist/challenges.json")
       )})
     </script>
-  `
+  `,
 });
 
 const codesChecker = ajv.compile({
@@ -39,12 +41,12 @@ const codesChecker = ajv.compile({
       type: "array",
       maxItems: 5,
       minItems: 5,
-      items: { type: "string" }
+      items: { type: "string" },
     },
     uid: {
-      type: "string"
-    }
-  }
+      type: "string",
+    },
+  },
 });
 
 app.use("/public", express.static(path.join(__dirname, "dist")));
@@ -53,23 +55,17 @@ app.use(cors());
 
 app.get("/api/stats", async (req, res) => {
   console.log(req.body);
-  const realCodes = (
-    await CodeModel.findOne()
-      .lean()
-      .exec()
-  ).codes;
-  const users = await RecordModel.find({})
-    .lean()
-    .exec();
+  const realCodes = (await CodeModel.findOne().lean().exec()).codes;
+  const users = await RecordModel.find({}).lean().exec();
   const stats = realCodes.map(
-    (real, idx) => users.filter(cur => cur.answers[idx] === real).length
+    (real, idx) => users.filter((cur) => cur.answers[idx] === real).length
   );
   console.log(stats);
   res.json({
     error: false,
     stats,
-    passed: users.filter(user => user.answers.every(Boolean)).length,
-    total: users.length
+    passed: users.filter((user) => user.answers.every(Boolean)).length,
+    total: users.length,
   });
 });
 
@@ -83,7 +79,7 @@ app.post("/api/results", async (req, res) => {
   res.json({
     error: false,
     contact: (user && user.contact) || null,
-    answers: (user && user.answers) || [null, null, null, null, null]
+    answers: (user && user.answers) || [null, null, null, null, null],
   });
 });
 
@@ -96,14 +92,10 @@ app.post("/api/check", async (req, res) => {
     user = new RecordModel({
       uid: req.body.uid,
       contact: req.body.contact,
-      answers: [null, null, null, null, null]
+      answers: [null, null, null, null, null],
     });
 
-  const realCodes = (
-    await CodeModel.findOne()
-      .lean()
-      .exec()
-  ).codes;
+  const realCodes = (await CodeModel.findOne().lean().exec()).codes;
 
   const results = zip(realCodes, req.body.answers, user.answers).map(
     ([real, provided, userAnswer]: [string, string, boolean]) => {
@@ -123,7 +115,7 @@ app.post("/api/check", async (req, res) => {
 
   res.status(200).json({
     error: false,
-    answers: results
+    answers: results,
   });
 });
 
@@ -133,25 +125,25 @@ app.get("/api/contestants", async (req, res) => {
       $unwind: {
         path: "$answers",
         includeArrayIndex: "idx",
-        preserveNullAndEmptyArrays: true
-      }
+        preserveNullAndEmptyArrays: true,
+      },
     },
     {
       $group: {
         _id: {
           contact: "$contact",
-          idx: "$idx"
+          idx: "$idx",
         },
         all_answers: {
-          $push: "$answers"
-        }
-      }
+          $push: "$answers",
+        },
+      },
     },
     {
       $sort: {
         "_id.idx": 1,
-        "_id.contact": 1
-      }
+        "_id.contact": 1,
+      },
     },
     {
       $group: {
@@ -166,30 +158,95 @@ app.get("/api/contestants", async (req, res) => {
                   if: {
                     $and: [
                       { $eq: ["$$value", null] },
-                      { $ne: ["$$this", null] }
-                    ]
+                      { $ne: ["$$this", null] },
+                    ],
                   },
                   then: "$$this",
-                  else: "$$value"
-                }
-              }
-            }
-          }
-        }
-      }
+                  else: "$$value",
+                },
+              },
+            },
+          },
+        },
+      },
     },
     {
       $project: {
         _id: 0,
         contact: "$_id",
         passed: {
-          $allElementsTrue: "$answers"
-        }
-      }
-    }
+          $allElementsTrue: "$answers",
+        },
+      },
+    },
   ]).exec();
 
   res.json(list);
+});
+
+app.get("/api/games", async (req, res) => {
+  const games = await GameModel.find({}).lean().exec();
+  res.json(games);
+});
+
+app.post("/api/refreshGames", async (req, res) => {
+  if (req.body.password !== process.env.API_SECRET) res.sendStatus(404);
+
+  const games: number[] = req.body.games;
+
+  let icons = await fetch(
+    "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1" +
+      "?key=1DF91CA29B8B5A056B77A5FFA3B47EEE&steamid=76561198148828491&" +
+      "include_appinfo=1&include_played_free_games=1&include_free_sub=1&format=json",
+    { method: "GET" }
+  ).then((x) => x.json());
+
+  const abouts = await Promise.all(
+    games.map((x) =>
+      fetch(
+        `https://store.steampowered.com/api/appdetails` +
+          `?appids=${x}&filters=basic&cc=ru&l=ru`,
+        {
+          method: "GET",
+          headers: {
+            "Accept-Language": "ru-RU, ru;q=0.9, en;q=0.5, *;q=0.3",
+          },
+        }
+      )
+        .then((r) => r.json())
+        .then((e) => ({ id: x, about: e[x].data.short_description }))
+    )
+  );
+
+  const data: IGame[] = (icons.response.games as any[])
+    .filter((x) => games.includes(x.appid))
+    .map<IGame>((x) => ({
+      tier: "Meme",
+      review: "",
+      appid: x.appid,
+      name: x.name,
+      steam: {
+        icon: x.img_icon_url,
+        logo: x.img_logo_url,
+        about: abouts.find((e) => e.id === x.appid).about,
+      },
+    }));
+
+  const inserts = data.map((x) => ({
+    updateOne: {
+      filter: { appid: x.appid },
+      update: x,
+      upsert: true,
+    },
+  }));
+
+  await GameModel.bulkWrite(inserts, {
+    ordered: false,
+    w: 1,
+    bypassDocumentValidation: true,
+  });
+
+  res.json({ success: true });
 });
 
 app.get("/twitch", (req, res) => {
@@ -219,18 +276,18 @@ app.get("/donate", (req, res) => {
 app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
   await SteamStats.updateOne(
     {
-      app_id: req.params.game_id
+      app_id: req.params.game_id,
     },
     {
       $setOnInsert: {
-        app_id: req.params.game_id
+        app_id: req.params.game_id,
       },
       $inc: {
-        clicks: 1
-      }
+        clicks: 1,
+      },
     },
     {
-      upsert: true
+      upsert: true,
     }
   ).exec();
   res.redirect(301, `https://store.steampowered.com/app/${req.params.game_id}`);
