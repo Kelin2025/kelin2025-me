@@ -1,4 +1,4 @@
-import { spec, h } from "effector-dom";
+import { spec, h } from "forest";
 
 export const withColor = color => {
   spec({ data: { color } });

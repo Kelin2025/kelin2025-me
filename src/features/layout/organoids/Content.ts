@@ -1,4 +1,4 @@
-import { variant, spec, h } from "effector-dom";
+import { variant, spec, h } from "forest";
 
 import { $currentRoute, Route } from "@/lib/route";
 

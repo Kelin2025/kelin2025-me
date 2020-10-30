@@ -1,5 +1,5 @@
 import { css } from "@/lib/styled";
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 import { createStore } from "effector";
 
 import { Aside } from "./Aside";

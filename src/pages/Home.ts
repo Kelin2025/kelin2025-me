@@ -1,4 +1,4 @@
-import { h } from "effector-dom";
+import { h } from "forest";
 
 import icon from "@/ui/assets/icons/portfolio.svg";
 

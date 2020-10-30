@@ -1,4 +1,4 @@
-import { h } from "effector-dom";
+import { h } from "forest";
 import { specCb } from "@/lib/spec";
 
 export const PageTitle = text => {

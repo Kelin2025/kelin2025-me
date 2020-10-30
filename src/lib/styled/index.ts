@@ -1,5 +1,5 @@
 import nanoid from "nanoid/generate";
-import { spec } from "effector-dom";
+import { spec } from "forest";
 
 const generate = (selector, tokens, ...args) =>
   `${selector} { ${tokens.reduce((res, cur, idx) => {
@@ -16,7 +16,7 @@ export const style = (tokens, ...args) => {
   const rootSelector = `[data-${data}]`;
   style.innerHTML = generate(rootSelector, tokens, ...args);
   document.body.appendChild(style);
-  const q = query => (tokens, ...args) => {
+  const q = (query) => (tokens, ...args) => {
     const selector = createSubSelector(query, rootSelector);
     const style = document.createElement("style");
     style.innerHTML = generate(selector, tokens, ...args);
@@ -33,9 +33,12 @@ export const style = (tokens, ...args) => {
   return view;
 };
 
-export const css = css => {
+export const css = (text, ...args) => {
   const style = document.createElement("style");
-  style.innerHTML = css;
+  style.innerHTML = text.reduce(
+    (res, part, idx) => `${res}${part}${args[idx] || ""}`,
+    ""
+  );
   document.body.appendChild(style);
 };
 

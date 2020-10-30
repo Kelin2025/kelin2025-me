@@ -1,6 +1,6 @@
 import { Store, combine } from "effector";
 import { specCb, SpecData } from "@/lib/spec";
-import { h, spec, handler } from "effector-dom";
+import { h, spec, handler } from "forest";
 
 import { $currentRoute, routeChanged } from "@/lib/route";
 

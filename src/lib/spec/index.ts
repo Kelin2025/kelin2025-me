@@ -1,6 +1,6 @@
 import { is, createStore, Store } from "effector";
 
-import { spec } from "effector-dom";
+import { spec } from "forest";
 
 export type SpecData =
   | Parameters<typeof spec>[0]

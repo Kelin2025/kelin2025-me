@@ -1,5 +1,5 @@
 import { css } from "@/lib/styled";
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 import { openTab } from "@/lib/route";
 import { eventWithData } from "@/lib/dom-utils";
 

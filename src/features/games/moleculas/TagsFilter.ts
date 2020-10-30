@@ -1,4 +1,4 @@
-import { list, remap } from "effector-dom";
+import { list, remap } from "forest";
 import { eventWithData } from "@/lib/dom-utils";
 
 import { Tag } from "@/api/challenges";

@@ -1,7 +1,7 @@
 import { css } from "@/lib/styled";
 import { Store } from "effector";
 import { eventWithData } from "@/lib/dom-utils";
-import { remap, h, spec, list, handler } from "effector-dom";
+import { remap, h, spec, list, handler } from "forest";
 
 import { Game } from "@/api/games";
 import { searchInputChanged } from "../logic/search";

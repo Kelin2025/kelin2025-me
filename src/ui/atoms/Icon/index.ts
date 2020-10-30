@@ -1,4 +1,4 @@
-import { h } from "effector-dom";
+import { h } from "forest";
 import { Store } from "effector";
 import { specCb, SpecData, toStore } from "@/lib/spec";
 

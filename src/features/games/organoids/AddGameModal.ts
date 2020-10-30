@@ -22,7 +22,7 @@ import {
 
 import { Modal, Label, Input, Button, CardTitle, ColumnGrid, Grid } from "@/ui";
 import { forward } from "effector";
-import { spec } from "effector-dom";
+import { spec } from "forest";
 
 export const AddGameModal = () => {
   const modal = Modal({

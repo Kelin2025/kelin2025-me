@@ -1,4 +1,4 @@
-import { h, spec, list } from "effector-dom";
+import { h, spec, list } from "forest";
 import { is, createStore, Store } from "effector";
 import { SpecData, specCb } from "@/lib/spec";
 

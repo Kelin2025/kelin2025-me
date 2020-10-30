@@ -2,7 +2,7 @@ import { copyText } from "@/lib/copy";
 import { textToHash } from "@/lib/hash-parser";
 import { eventWithData } from "@/lib/dom-utils";
 import { routeChanged } from "@/lib/route";
-import { h, remap, spec, list } from "effector-dom";
+import { h, remap, spec, list } from "forest";
 import { Store, forward, sample, guard } from "effector";
 
 import { Game } from "@/api/games";

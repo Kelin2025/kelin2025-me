@@ -1,5 +1,5 @@
 import { specCb } from "@/lib/spec";
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 
 export const createGrid = ({ gap = 16, cols }) => {
   return child => {

@@ -1,6 +1,6 @@
 import { Card } from "../Card";
 
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 import { YoutubeLink } from "@/ui/atoms/YoutubeLink";
 import { toStore, specCb, SpecData } from "@/lib/spec";
 import { onlyOn } from "@/ui/logic/screen";

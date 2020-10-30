@@ -1,4 +1,4 @@
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 import { SpecData, specCb } from "@/lib/spec";
 
 export const Checkbox = ({ value, label, change }, specData?: SpecData) => {

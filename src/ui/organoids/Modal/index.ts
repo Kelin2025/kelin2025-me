@@ -1,4 +1,4 @@
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 import { createEvent, createStore, guard } from "effector";
 import { Separator } from "@/ui/atoms/Separator";
 

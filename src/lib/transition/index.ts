@@ -1,4 +1,4 @@
-import { node } from "effector-dom";
+import { node } from "forest";
 import { createEvent } from "effector";
 
 export const createTransition = ({ duration, gap, queue }, animation) => {

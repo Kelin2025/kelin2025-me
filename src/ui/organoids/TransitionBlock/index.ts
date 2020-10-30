@@ -1,4 +1,4 @@
-import { h } from "effector-dom";
+import { h } from "forest";
 import { pageTransition } from "@/ui/logic/transition";
 
 export const TransitionBlock = child => {

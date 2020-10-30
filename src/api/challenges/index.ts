@@ -14,14 +14,14 @@ export const challengesLoaded = createEvent<Challenge[]>();
 
 export const $challengesList = createStore<Challenge[]>(
   process.env.NODE_ENV === "development"
-    ? JSON.parse(localStorage.challenges)
+    ? JSON.parse(localStorage.challenges || "[]")
     : []
 );
 
-export const $challengesGames = $challengesList.map(list =>
+export const $challengesGames = $challengesList.map((list) =>
   list.reduce((res, cur) => {
     for (const tag of cur.tags) {
-      if (tag.type === "game" && !res.some(cur => cur.value === tag.value)) {
+      if (tag.type === "game" && !res.some((cur) => cur.value === tag.value)) {
         res.push(tag);
       }
     }
@@ -29,10 +29,10 @@ export const $challengesGames = $challengesList.map(list =>
   }, [])
 );
 
-export const $challengesGroups = $challengesList.map(list =>
+export const $challengesGroups = $challengesList.map((list) =>
   list.reduce((res, cur) => {
     for (const tag of cur.tags) {
-      if (tag.type === "group" && !res.some(cur => cur.value === tag.value)) {
+      if (tag.type === "group" && !res.some((cur) => cur.value === tag.value)) {
         res.push(tag);
       }
     }

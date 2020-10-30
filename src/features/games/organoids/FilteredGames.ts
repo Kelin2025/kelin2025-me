@@ -1,4 +1,4 @@
-import { list, spec, h } from "effector-dom";
+import { list, spec, h } from "forest";
 
 import { $filteredGames } from "../logic/search";
 

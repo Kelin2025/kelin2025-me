@@ -1,5 +1,5 @@
 import { css } from "@/lib/styled";
-import { spec } from "effector-dom";
+import { spec } from "forest";
 import { device } from "@/ui/logic/screen";
 
 import { NameFilter } from "../moleculas/NameFilter";

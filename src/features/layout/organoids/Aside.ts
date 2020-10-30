@@ -1,6 +1,6 @@
 import { css } from "@/lib/styled";
 import { Store } from "effector";
-import { h, list, remap, spec } from "effector-dom";
+import { h, list, remap, spec } from "forest";
 
 import avatar from "@/ui/assets/icons/avatar.png";
 import { Route } from "@/lib/route";

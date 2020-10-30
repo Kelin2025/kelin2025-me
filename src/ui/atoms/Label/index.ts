@@ -1,4 +1,4 @@
-import { h, spec } from "effector-dom";
+import { h, spec } from "forest";
 
 export const Label = (text: string, child: Function) => {
   h("label", () => {

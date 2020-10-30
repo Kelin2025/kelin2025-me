@@ -1,4 +1,4 @@
-import { h } from "effector-dom";
+import { h } from "forest";
 
 const colors = {
   red: "#FF4242",

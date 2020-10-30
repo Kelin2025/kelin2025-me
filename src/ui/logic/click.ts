@@ -1,6 +1,6 @@
 import { css } from "@/lib/styled";
 import { Event } from "effector";
-import { spec, handler } from "effector-dom";
+import { spec, handler } from "forest";
 
 css`
   [data-clickable] {

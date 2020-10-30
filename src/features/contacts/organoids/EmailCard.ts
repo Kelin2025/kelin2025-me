@@ -1,4 +1,4 @@
-import { h } from "effector-dom";
+import { h } from "forest";
 import { css } from "@/lib/styled";
 
 import { Card } from "@/ui";

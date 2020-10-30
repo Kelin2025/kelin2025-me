@@ -1,5 +1,5 @@
 import { combine } from "effector";
-import { list, h, spec } from "effector-dom";
+import { list, h, spec } from "forest";
 import { eventWithData } from "@/lib/dom-utils";
 
 import { $stats, $trueAnswers, $allPassedCount } from "@/api/giveaway";

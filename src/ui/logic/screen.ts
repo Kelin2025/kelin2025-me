@@ -1,4 +1,4 @@
-import { variant, spec } from "effector-dom";
+import { variant, spec } from "forest";
 import { createStore, createEvent } from "effector";
 
 export type Device = "phone" | "desktop";

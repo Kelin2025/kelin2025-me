@@ -1,5 +1,5 @@
 import { css } from "@/lib/styled";
-import { list, h, remap, spec } from "effector-dom";
+import { list, h, remap, spec } from "forest";
 
 import { $challengesList } from "@/api/challenges";
 
