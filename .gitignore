@@ -4,3 +4,7 @@ dist
 .cache
 
 server.js
+
+games.json
+games.txt
+parse-games.js
