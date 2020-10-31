@@ -31,7 +31,6 @@
 }
 
 [data-text] {
-  text-align: justify;
 }
 
 [data-text] p:first-child {

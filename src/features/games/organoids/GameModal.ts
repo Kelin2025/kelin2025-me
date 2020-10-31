@@ -1,98 +1,107 @@
 import { copyText } from "@/lib/copy";
 import { textToHash } from "@/lib/hash-parser";
-import { eventWithData } from "@/lib/dom-utils";
+import { getGamePath } from "@/lib/steam";
 import { routeChanged } from "@/lib/route";
-import { h, remap, spec, list } from "forest";
+import { eventWithData, navigate } from "@/lib/dom-utils";
+import { h, remap, list, variant, route } from "forest";
 import { Store, forward, sample, guard } from "effector";
 
-import { Game } from "@/api/games";
+import { Game } from "@/api/games-tier-list";
 import { gameModalTriggered } from "../logic/search";
 
-import clock from "@/ui/assets/icons/clock.svg";
-import { GameData } from "../moleculas/GameData";
-import { Modal, List, Grid, Icon, Button, ColumnGrid, TextBlock } from "@/ui";
+import { Modal, Grid, Button, ColumnGrid, TextBlock, Paragraph } from "@/ui";
 
 export const GameModal = (game: Store<Game>) => {
-  const paragraphs = game.map(game =>
-    typeof game.description === "string"
-      ? game.description.split("\n")
-      : game.description
-  );
+  const paragraphs = game.map((game) => {
+    if (!game.review) {
+      return null;
+    }
+    return game.review.split("\n");
+  });
+
   const modal = Modal({
     title: () => {
-      Grid(
-        { cols: "1fr max-content", align: "center", justify: "space-between" },
-        () => {
-          h("div", () => {
-            GameData(game);
-          });
-          Grid({ flow: "column", gap: 8, align: "center" }, () => {
-            Icon({ link: clock, scale: 1.5 });
-            h("span", { text: game.map(game => `${game.hours}ч`) });
-          });
-        }
-      );
+      h("div", () => {
+        h("h2", { text: remap(game, "name"), data: { gameTitle: true } });
+      });
     },
     child: () => {
       ColumnGrid(() => {
         TextBlock(() => {
-          list(paragraphs, ({ store }) => {
-            h("p", { text: store });
+          route({
+            source: game,
+            visible: (game) => game.steam && !!game.steam.about,
+            fn: () => {
+              h("h4", {
+                text: "Описание из Steam",
+                style: { margin: "0 0 10px" },
+              });
+              Paragraph(game.map((game) => game.steam.about));
+            },
           });
-        });
-        h("h4", {
-          text: "Плюсы",
-          style: { margin: "20px 0 0", fontSize: "24px", fontWeight: 400 }
-        });
-        List({ type: "plus" }, remap(game, "pros"), () => {
-          spec({ data: { color: "green" } });
-        });
-        h("h4", {
-          text: "Минусы",
-          style: { margin: "20px 0 0", fontSize: "24px", fontWeight: 400 }
-        });
-        List({ type: "minus" }, remap(game, "cons"), () => {
-          spec({ data: { color: "red" } });
+          route({
+            source: paragraphs,
+            visible: (p) => !!p,
+            fn: () => {
+              h("h4", { text: "Мое мнение" });
+              list(paragraphs, ({ store }) => {
+                Paragraph(store);
+              });
+            },
+          });
         });
       });
     },
-    controls: () => {
-      Button(
-        {
-          type: "primary",
-          text: "Копировать ссылку",
-          click: eventWithData<MouseEvent>(
-            game.map(
-              game => `https://kelin2025.me/games#${textToHash(game.title)}`
+    controls: ({ close }) => {
+      Grid({ gap: 8, justify: "center", flow: "column" }, () => {
+        Button({
+          text: "Перейти в Steam",
+          data: { size: "form", type: "primary" },
+          handler: {
+            click: navigate<MouseEvent>(
+              game.map((game) => getGamePath({ id: game.appid }))
             ),
-            copyText
-          )
-        },
-        { data: { full: true, size: "form" } }
-      );
-    }
+          },
+        });
+        Button({
+          data: { size: "form", type: "primary" },
+          text: "Копировать ссылку",
+          handler: {
+            click: eventWithData<MouseEvent>(
+              game.map((game) => getGamePath({ id: game.appid })),
+              copyText
+            ),
+          },
+        });
+        Button({
+          data: { size: "form" },
+          text: "Закрыть",
+          handler: { click: close },
+        });
+      });
+    },
   });
 
-  forward({
-    from: sample(remap(game, "title"), modal.open),
-    to: routeChanged.prepend(title => `/games#${textToHash(title)}`)
-  });
+  // forward({
+  //   from: sample(remap(game, "name"), modal.open),
+  //   to: routeChanged.prepend((title) => `/games#${textToHash(title)}`),
+  // });
 
-  forward({
-    from: sample(remap(game, "title"), modal.close),
-    to: routeChanged.prepend(title => `/games`)
-  });
+  // forward({
+  //   from: sample(remap(game, "name"), modal.close),
+  //   to: routeChanged.prepend((title) => `/games`),
+  // });
 
-  guard({
-    source: sample(
-      remap(game, "title"),
-      gameModalTriggered,
-      (current, opened) => ({ current, opened })
-    ),
-    filter: ({ current, opened }) =>
-      current.toLocaleLowerCase() === opened.toLocaleLowerCase(),
-    target: modal.open
-  });
+  // guard({
+  //   source: sample(
+  //     remap(game, "name"),
+  //     gameModalTriggered,
+  //     (current, opened) => ({ current, opened })
+  //   ),
+  //   filter: ({ current, opened }) =>
+  //     current.toLocaleLowerCase() === opened.toLocaleLowerCase(),
+  //   target: modal.open,
+  // });
 
   return modal;
 };

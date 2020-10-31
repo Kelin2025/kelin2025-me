@@ -1,6 +1,6 @@
 import { createStore, combine, createEffect } from "effector";
 
-type Game = {
+export type Game = {
   _id: string;
   appid: number;
   name: string;
@@ -15,7 +15,7 @@ type Game = {
 };
 
 export const loadGames = createEffect<void, Game[]>({
-  handler: () => fetch("/api/games").then((r) => r.json()),
+  handler: () => fetch("https://kelin2025.me/api/games").then((r) => r.json()),
 });
 
 export const $allGames = createStore<Game[]>([]);
@@ -38,5 +38,7 @@ export const $gamesByTiers = combine($gamesTiers, $allGames, (tiers, games) =>
 );
 
 $allGames.on(loadGames.doneData, (state, games) => games);
+
+$allGames.watch(console.log);
 
 loadGames();

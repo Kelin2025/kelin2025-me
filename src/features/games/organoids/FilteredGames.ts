@@ -10,7 +10,6 @@ import { ColumnGrid, Card, Grid, Icon, Button } from "@/ui";
 export const FilteredGames = () => {
   ColumnGrid(() => {
     list($filteredGames, ({ store }) => {
-      console.time("start");
       const gameModal = GameModal(store);
       Card(() => {
         spec({ data: { game: true } });
@@ -22,12 +21,14 @@ export const FilteredGames = () => {
           Grid({ flow: "column", gap: 8, align: "center" }, () => {
             spec({ data: { gameHours: true } });
             Icon({ link: clock, scale: 1.5 });
-            h("span", { text: store.map(game => `${game.hours}ч`) });
+            h("span", { text: store.map((game) => `${game.hours}ч`) });
           });
           Button({
-            type: "primary",
             text: "Подробнее",
-            click: gameModal.open
+            data: { type: "primary" },
+            handler: {
+              click: gameModal.open,
+            },
           });
         });
       });

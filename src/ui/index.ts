@@ -16,6 +16,7 @@ export * from "./atoms/Grid";
 export * from "./atoms/Separator";
 export * from "./atoms/Input";
 export * from "./atoms/Text";
+export * from "./atoms/Paragraph";
 export * from "./atoms/Label";
 
 export * from "./moleculas/ButtonStack";

@@ -1,0 +1,6 @@
+[data-paragraph] {
+}
+
+[data-paragraph][data-gap] {
+  text-indent: 16px;
+}
