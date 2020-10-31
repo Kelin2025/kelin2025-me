@@ -242,8 +242,8 @@ app.post("/api/refreshGames", async (req, res) => {
   const data: IGame[] = (icons.response.games as any[])
     .filter((x) => games.includes(x.appid))
     .map<IGame>((x) => ({
-      tier: "Meme",
-      review: "",
+      tier: x.tier || "Meme",
+      review: x.review || "",
       appid: x.appid,
       name: x.name,
       video: null,
