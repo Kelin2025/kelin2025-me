@@ -232,7 +232,10 @@ app.post("/api/refreshGames", async (req, res) => {
         }
       )
         .then((r) => r.json())
-        .then((e) => ({ id: x, about: e[x].data.short_description }))
+        .then((e) => ({
+          id: x,
+          about: e[x] && e[x].data && e[x].data.short_description,
+        }))
     )
   );
 
