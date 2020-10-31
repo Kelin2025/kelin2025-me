@@ -233,7 +233,7 @@ app.post("/api/refreshGames", async (req, res) => {
       )
         .then((r) => r.json())
         .then((e) => ({
-          id: game,
+          id: game.appid,
           about:
             e[game.appid] &&
             e[game.appid].data &&
