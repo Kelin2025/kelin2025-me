@@ -14,7 +14,9 @@ type Game = {
   };
 };
 
-export const loadGames = createEffect<null, Game[]>(() => fetch("/api/games"));
+export const loadGames = createEffect<null, Game[]>({
+  handler: () => fetch("/api/games").then((r) => r.json()),
+});
 
 export const $allGames = createStore<Game[]>([]);
 
@@ -36,3 +38,5 @@ export const $gamesByTiers = combine($gamesTiers, $allGames, (tiers, games) =>
 );
 
 $allGames.on(loadGames.doneData, (state, games) => games);
+
+loadGames();
