@@ -9,7 +9,9 @@ export const GamesTierList = () => {
   TierList({
     data: $gamesByTiers,
     view: ({ store }) => {
-      const icon = store.map((game) => getIconPath(game.steam));
+      const icon = store.map((game) =>
+        getIconPath({ id: game.appid, icon: game.steam.icon })
+      );
       h("img", {
         attr: { src: icon },
         style: { borderRadius: "5px" },
