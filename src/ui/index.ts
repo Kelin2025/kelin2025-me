@@ -26,3 +26,4 @@ export * from "./organoids/PageRoot";
 export * from "./organoids/TransitionBlock";
 export * from "./organoids/Modal";
 export * from "./organoids/List";
+export * from "./organoids/TierList";

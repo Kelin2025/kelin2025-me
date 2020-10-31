@@ -16,8 +16,8 @@ css`
 `;
 
 export const Content = (routes: Route[]) => {
-  const $width = $currentRoute.map(route => {
-    const obj = routes.find(cur => cur.link === route);
+  const $width = $currentRoute.map((route) => {
+    const obj = routes.find((cur) => cur.link === route);
     if (obj) {
       return `${obj.meta.width}px`;
     }
@@ -26,17 +26,17 @@ export const Content = (routes: Route[]) => {
 
   h("div", () => {
     spec({
-      data: { content: true }
+      data: { content: true },
     });
     PageRoot(() => {
       spec({
         styleVar: {
-          width: $width
-        }
+          width: $width,
+        },
       });
-      variant(
-        $currentRoute,
-        routes.reduce((res, cur) => {
+      variant({
+        source: $currentRoute,
+        cases: routes.reduce((res, cur) => {
           // NOTE: We need to wrap in div
           // Otherwise it will randomly render elements from other pages
           // Probably because variant does not support 2+ roots yet
@@ -46,8 +46,8 @@ export const Content = (routes: Route[]) => {
             });
           };
           return res;
-        }, {})
-      );
+        }, {}),
+      });
     });
   });
 };

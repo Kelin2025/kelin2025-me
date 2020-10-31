@@ -1,0 +1,27 @@
+[data-tier-list] {
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+[data-tier-list] tr {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+[data-tier-list-tier] {
+  background: var(--background);
+  color: var(--textColor);
+  width: 100px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+[data-tier-list-items] {
+  width: 100%;
+  padding: 15px;
+}
