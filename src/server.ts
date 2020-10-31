@@ -210,7 +210,7 @@ app.get("/api/games", async (req, res) => {
 
 app.post("/api/refreshGames", async (req, res) => {
   if (req.body.password !== process.env.API_SECRET) return res.sendStatus(404);
-  const games: number[] = req.body.games;
+  const games = await GameModel.find({});
 
   let icons = await fetch(
     "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1" +
@@ -220,10 +220,10 @@ app.post("/api/refreshGames", async (req, res) => {
   ).then((x) => x.json());
 
   const abouts = await Promise.all(
-    games.map((x) =>
+    games.map((game) =>
       fetch(
         `https://store.steampowered.com/api/appdetails` +
-          `?key=${STEAM_API_KEY}&appids=${x}&filters=basic&cc=ru&l=ru`,
+          `?key=${STEAM_API_KEY}&appids=${game.appid}&filters=basic&cc=ru&l=ru`,
         {
           method: "GET",
           headers: {
@@ -233,26 +233,33 @@ app.post("/api/refreshGames", async (req, res) => {
       )
         .then((r) => r.json())
         .then((e) => ({
-          id: x,
-          about: e[x] && e[x].data && e[x].data.short_description,
+          id: game,
+          about:
+            e[game.appid] &&
+            e[game.appid].data &&
+            e[game.appid].data.short_description,
         }))
     )
   );
 
-  const data: IGame[] = (icons.response.games as any[])
-    .filter((x) => games.includes(x.appid))
-    .map<IGame>((x) => ({
-      tier: x.tier || "Meme",
-      review: x.review || "",
-      appid: x.appid,
-      name: x.name,
-      video: null,
-      steam: {
-        icon: x.img_icon_url,
-        logo: x.img_logo_url,
-        about: abouts.find((e) => e.id === x.appid).about,
-      },
-    }));
+  let data = [];
+  for (const x of icons.response.games) {
+    const game = games.find((game) => game.appid === x.appid);
+    if (game) {
+      data.push({
+        tier: game.tier || "Meme",
+        review: game.review || "",
+        appid: x.appid,
+        name: x.name,
+        video: game.video || null,
+        steam: {
+          icon: x.img_icon_url,
+          logo: x.img_logo_url,
+          about: abouts.find((e) => e.id === x.appid).about,
+        },
+      });
+    }
+  }
 
   const inserts = data.map((x) => ({
     updateOne: {
