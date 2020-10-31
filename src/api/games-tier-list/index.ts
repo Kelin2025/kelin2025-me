@@ -14,7 +14,7 @@ type Game = {
   };
 };
 
-export const loadGames = createEffect<null, Game[]>({
+export const loadGames = createEffect<void, Game[]>({
   handler: () => fetch("/api/games").then((r) => r.json()),
 });
 
