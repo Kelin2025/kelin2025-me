@@ -302,7 +302,7 @@ app.get("/discord", (req, res) => {
 });
 
 app.get("/donate", (req, res) => {
-  res.redirect(301, "https://www.donationalerts.com/r/kelin2025");
+  res.redirect(301, "https://donatepay.ru/don/kelin2025");
 });
 
 app.get("/requests", async (req, res) => {
