@@ -312,6 +312,13 @@ app.get("/requests", async (req, res) => {
   );
 });
 
+app.get("/chat-rules", (req, res) => {
+  res.redirect(
+    302,
+    "https://www.notion.so/kelin2025/dd9c93d2c96b4889bd60d80a1684612d"
+  );
+});
+
 app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
   await SteamStats.updateOne(
     {
