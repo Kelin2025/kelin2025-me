@@ -339,6 +339,13 @@ app.get<{ game_id: string }>("/steam/:game_id", async (req, res) => {
   res.redirect(301, `https://store.steampowered.com/app/${req.params.game_id}`);
 });
 
+app.get("/get/lush2", async (req, res) => {
+  res.redirect(
+    301,
+    "https://www.rozoviykrolik.ru/catalog/elitnye_vibratory/vibrator-s-prilozheniem-lovense-lush-2-rozovyj_83205.html?ref_id=kelin2025"
+  );
+});
+
 app.get("*", (req, res) => {
   res.send(page);
 });
