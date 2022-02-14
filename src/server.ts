@@ -301,6 +301,10 @@ app.get("/discord", (req, res) => {
   res.redirect(302, "https://discord.gg/ZNxXVs9");
 });
 
+app.get("/telegram", (req, res) => {
+  res.redirect(302, "https://t.me/kelin2play");
+});
+
 app.get("/donate", (req, res) => {
   res.redirect(301, "https://donatepay.ru/don/kelin2025");
 });
