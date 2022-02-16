@@ -86,8 +86,8 @@ sample({
   target: getGiveawayResults
 });
 
-getStats({});
-getGiveawayResults({ uid: $token.getState() });
+// getStats({});
+// getGiveawayResults({ uid: $token.getState() });
 
 forward({
   from: checkGiveaway.done,

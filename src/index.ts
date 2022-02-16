@@ -1,5 +1,7 @@
 import { using } from "forest";
 
+import "virtual:svg-icons-register";
+
 import "./features";
 
 import { Layout } from "@/features/layout";

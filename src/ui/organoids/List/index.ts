@@ -2,6 +2,8 @@ import { h, spec, list } from "forest";
 import { is, createStore, Store } from "effector";
 import { SpecData, specCb } from "@/lib/spec";
 
+import "./index.css";
+
 export const List = (
   { type = "square" },
   items: string[] | Store<string[]>,

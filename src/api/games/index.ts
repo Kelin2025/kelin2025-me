@@ -1,12 +1,14 @@
 import { createStore, createEvent } from "effector";
 
+import games from "@/db/games.json";
+
 export type Tag = { type: string; value: string };
 
 export type Game = {
   title: string;
   image: string;
-  description: string;
-  rating: number;
+  description: string[];
+  rating: string;
   hours: number | string;
   links: {
     review: string;
@@ -18,9 +20,7 @@ export type Game = {
 
 export const gamesLoaded = createEvent<Game[]>();
 
-export const $gamesList = createStore<Game[]>(
-  process.env.NODE_ENV === "development" ? JSON.parse(localStorage.games) : []
-);
+export const $gamesList = createStore<Game[]>(games);
 export const $tagsList = $gamesList.map((games) => {
   return games.reduce<Tag[]>((res, game) => {
     res.push(
@@ -41,5 +41,3 @@ export const $viewsList = $tagsList.map((tags) =>
 );
 
 $gamesList.on(gamesLoaded, (state, games) => games);
-
-window.gamesLoaded = gamesLoaded;

@@ -1,2 +1,6 @@
-const includeAll = require.context(".", true, /index\.ts$/);
-includeAll.keys().forEach(includeAll);
+import "./layout";
+import "./giveaway";
+import "./games-tier-list";
+import "./games";
+import "./contacts";
+import "./challenges";

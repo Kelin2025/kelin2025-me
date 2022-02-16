@@ -1,5 +1,7 @@
 import { h } from "forest";
 
+import "./index.css";
+
 const colors = {
   red: "#FF4242",
   orange: "#FFA842",

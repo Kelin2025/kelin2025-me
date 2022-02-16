@@ -5,6 +5,8 @@ import { YoutubeLink } from "@/ui/atoms/YoutubeLink";
 import { toStore, specCb, SpecData } from "@/lib/spec";
 import { onlyOn } from "@/ui/logic/screen";
 
+import "./index.css";
+
 export const ChallengeCard = (
   { title, icon, description, video },
   specs?: SpecData

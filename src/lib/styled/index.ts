@@ -1,4 +1,4 @@
-import nanoid from "nanoid/generate";
+import { customAlphabet } from "nanoid";
 import { spec } from "forest";
 
 const generate = (selector, tokens, ...args) =>
@@ -12,17 +12,19 @@ const createSubSelector = (query, rootSelector) =>
 
 export const style = (tokens, ...args) => {
   const style = document.createElement("style");
-  const data = nanoid("abcdefghijklmnopqrstuvwxyz0123456789", 20);
+  const data = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 20)();
   const rootSelector = `[data-${data}]`;
   style.innerHTML = generate(rootSelector, tokens, ...args);
   document.body.appendChild(style);
-  const q = (query) => (tokens, ...args) => {
-    const selector = createSubSelector(query, rootSelector);
-    const style = document.createElement("style");
-    style.innerHTML = generate(selector, tokens, ...args);
-    document.body.appendChild(style);
-    return view;
-  };
+  const q =
+    (query) =>
+    (tokens, ...args) => {
+      const selector = createSubSelector(query, rootSelector);
+      const style = document.createElement("style");
+      style.innerHTML = generate(selector, tokens, ...args);
+      document.body.appendChild(style);
+      return view;
+    };
   const view = () => {
     spec({ data: { [data]: true } });
   };

@@ -6,7 +6,7 @@ export const applyFilters = <T>(
   filters: ((item: T) => boolean)[],
   items: T[]
 ) => {
-  return items.filter(item => filters.every(filter => filter(item)));
+  return items.filter((item) => filters.every((filter) => filter(item)));
 };
 
 export const createFilter = <T, U>(
@@ -22,10 +22,10 @@ export const createFilter = <T, U>(
 export const combineFilters = <T>(
   filters: Store<boolean[]>[],
   list: Store<T[]>
-) => {
+): Store<T[]> => {
   return combine(...filters, list, (...args) => {
     const filters = args.slice(0, -1);
     const list = args.slice(-1)[0];
-    return list.filter((_, idx) => filters.every(bools => bools[idx]));
+    return list.filter((_, idx) => filters.every((bools) => bools[idx]));
   });
 };

@@ -1,5 +1,7 @@
 import { createStore, createEvent } from "effector";
 
+import challenges from "@/db/challenges.json";
+
 export type Tag = { type: string; value: string };
 
 export type Challenge = {
@@ -12,11 +14,7 @@ export type Challenge = {
 
 export const challengesLoaded = createEvent<Challenge[]>();
 
-export const $challengesList = createStore<Challenge[]>(
-  process.env.NODE_ENV === "development"
-    ? JSON.parse(localStorage.challenges || "[]")
-    : []
-);
+export const $challengesList = createStore<Challenge[]>(challenges);
 
 export const $challengesGames = $challengesList.map((list) =>
   list.reduce((res, cur) => {
@@ -41,5 +39,3 @@ export const $challengesGroups = $challengesList.map((list) =>
 );
 
 $challengesList.on(challengesLoaded, (state, list) => list);
-
-window.challengesLoaded = challengesLoaded;

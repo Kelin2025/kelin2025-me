@@ -72,7 +72,7 @@ export const MobileBar = (routes: Store<Route[]>) => {
   // }>();
   h("div", () => {
     onlyOn("phone");
-    spec({ data: { mobileBar: true } });
+    spec({ data: { mobileBar: true }, style: { zIndex: "100" } });
     // h("div", () => {
     //   spec({ data: { mobileLava: true } });
     //   node(el => {
@@ -81,12 +81,12 @@ export const MobileBar = (routes: Store<Route[]>) => {
     //     });
     //   });
     // });
-    list(routes, ({ index, store }) => {
+    list(routes, ({ store }) => {
       RouteLink(
         {
-          icon: store.map(route => route.meta.icon),
+          icon: store.map((route) => route.meta.icon),
           text: null,
-          href: store.map(route => route.link)
+          href: store.map((route) => route.link)
         }
         // () => {
         //   handler({

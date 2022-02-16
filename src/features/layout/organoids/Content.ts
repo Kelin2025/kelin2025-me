@@ -1,4 +1,4 @@
-import { variant, spec, h } from "forest";
+import { route, spec, h } from "forest";
 
 import { $currentRoute, Route } from "@/lib/route";
 
@@ -26,28 +26,22 @@ export const Content = (routes: Route[]) => {
 
   h("div", () => {
     spec({
-      data: { content: true },
+      data: { content: true }
     });
     PageRoot(() => {
       spec({
         styleVar: {
-          width: $width,
-        },
+          width: $width
+        }
       });
-      variant({
-        source: $currentRoute,
-        cases: routes.reduce((res, cur) => {
-          // NOTE: We need to wrap in div
-          // Otherwise it will randomly render elements from other pages
-          // Probably because variant does not support 2+ roots yet
-          res[cur.link] = () => {
-            h("div", () => {
-              cur.view();
-            });
-          };
-          return res;
-        }, {}),
-      });
+
+      for (const page of routes) {
+        route({
+          source: $currentRoute,
+          visible: (current) => page.link === current,
+          fn: page.view
+        });
+      }
     });
   });
 };

@@ -10,7 +10,7 @@ import { eventWithData } from "@/lib/dom-utils";
 type LinkData = {
   icon: string | Store<string>;
   text: string | Store<string>;
-  href: string | Store<string>;
+  href: Store<string>;
 };
 
 export const RouteLink = (

@@ -2,6 +2,8 @@ import { h, spec } from "forest";
 import { createEvent, createStore, guard } from "effector";
 import { Separator } from "@/ui/atoms/Separator";
 
+import "./index.css";
+
 type Data = {
   title: Function;
   child: Function;

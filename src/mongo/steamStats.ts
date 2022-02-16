@@ -13,4 +13,14 @@ const SteamStatsSchema = new Schema({
   }
 });
 
+/*
+
+CREATE TABLE SteamStats (
+  appid: uint64,
+  clicks: uint64,
+  PRIMARY KEY (appid)
+);
+
+*/
+
 export const SteamStats = model<ISteamStats>("SteamStat", SteamStatsSchema);

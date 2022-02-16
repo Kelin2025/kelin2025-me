@@ -21,14 +21,14 @@ export const FilteredGames = () => {
           Grid({ flow: "column", gap: 8, align: "center" }, () => {
             spec({ data: { gameHours: true } });
             Icon({ link: clock, scale: 1.5 });
-            h("span", { text: store.map((game) => `${game.hours}ч`) });
+            h("span", { text: store.map(game => `${game.hours}ч`) });
           });
           Button({
             text: "Подробнее",
             data: { type: "primary" },
             handler: {
-              click: gameModal.open,
-            },
+              click: gameModal.open
+            }
           });
         });
       });

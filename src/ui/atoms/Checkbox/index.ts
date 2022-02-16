@@ -1,6 +1,8 @@
 import { h, spec } from "forest";
 import { SpecData, specCb } from "@/lib/spec";
 
+import "./index.css";
+
 export const Checkbox = ({ value, label, change }, specData?: SpecData) => {
   h("label", () => {
     spec({ data: { checkbox: true } });

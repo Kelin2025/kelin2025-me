@@ -1,6 +1,8 @@
 import { specCb } from "@/lib/spec";
 import { h, spec } from "forest";
 
+import "./index.css";
+
 export const createGrid = ({ gap = 16, cols }) => {
   return child => {
     h("div", () => {

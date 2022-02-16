@@ -1,7 +1,8 @@
-const includeAllLogic = require.context("./logic", true, /\.ts$/);
-includeAllLogic.keys().forEach(includeAllLogic);
-const includeAllStyles = require.context(".", true, /\.css$/);
-includeAllStyles.keys().forEach(includeAllStyles);
+import "./logic/click";
+import "./logic/screen";
+import "./logic/transition";
+
+import "./assets/css/reset.css";
 
 export * from "./atoms/Icon";
 export * from "./atoms/Button";

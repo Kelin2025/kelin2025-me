@@ -14,7 +14,7 @@ export const savePressed = createEvent();
 
 export const $title = createStore<string>("");
 export const $description = createStore<string>("");
-export const $rating = createStore<number>("");
+export const $rating = createStore<string>("");
 export const $hours = createStore<string>("");
 export const $review = createStore<string>("");
 export const $pros = createStore<string[]>([]);
@@ -32,10 +32,10 @@ export const $formData = combine({
   pros: $pros,
   cons: $cons,
   tags: combine([
-    $genre.map(value => ({ type: "genre", value })),
-    $tag.map(value => ({ type: "tag", value })),
-    $difficulty.map(value => ({ type: "difficulty", value }))
-  ])
+    $genre.map((value) => ({ type: "genre", value })),
+    $tag.map((value) => ({ type: "tag", value })),
+    $difficulty.map((value) => ({ type: "difficulty", value })),
+  ]),
 });
 
 $title.on(titleChanged, (state, value) => value);
@@ -58,7 +58,7 @@ $tag.on(tagChanged, (state, value) => value);
 
 $rating.on(ratingChanged, (state, value) => value);
 
-sample($formData, savePressed).watch(game => {
+sample($formData, savePressed).watch((game) => {
   let games = [];
   try {
     games = JSON.parse(localStorage.games);

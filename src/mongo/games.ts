@@ -13,24 +13,46 @@ export interface IGame {
   };
 }
 
+/*
+CREATE TABLE Games
+(
+  appid uint64,
+  name utf8,
+  tier utf8,
+  review utf8,
+  video utf8?,
+  PRIMARY KEY (appid)
+);
+
+CREATE TABLE SteamGames
+(
+  appid uint64,
+  about utf8,
+  icon utf8?,
+  logo utf8?,
+  PRIMARY KEY (appid)
+);
+
+*/
+
 const GameSchema = new Schema({
   appid: {
     type: Number,
     unique: true,
-    index: true,
+    index: true
   },
   name: String,
   tier: {
     type: String,
-    enum: ["S", "A", "B", "C", "D", "E", "Meme"],
+    enum: ["S", "A", "B", "C", "D", "E", "Meme"]
   },
   review: String,
   video: String,
   steam: {
     about: String,
     icon: String,
-    logo: String,
-  },
+    logo: String
+  }
 });
 
 export const GameModel = model<IGame & Document>("Game", GameSchema);

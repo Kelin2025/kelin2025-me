@@ -1,5 +1,7 @@
 import { spec, h } from "forest";
 
+import "./index.css";
+
 export const withColor = color => {
   spec({ data: { color } });
 };

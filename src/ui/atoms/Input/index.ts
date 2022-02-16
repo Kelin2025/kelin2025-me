@@ -2,6 +2,8 @@ import { specCb } from "@/lib/spec";
 import { h, spec } from "forest";
 import { Store, Event } from "effector";
 
+import "./index.css";
+
 type Data = {
   value: Store<string>;
   change: Event<string>;
