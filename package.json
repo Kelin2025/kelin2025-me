@@ -28,7 +28,7 @@
     "nanoid": "^3.3.0",
     "node-fetch": "^2.6.1",
     "qs": "^6.10.3",
-    "vite": "^2.8.2",
+    "vite": "^2.9.13",
     "vite-plugin-svg-icons": "^2.0.1",
     "yandex-cloud": "^1.4.3",
     "ydb-sdk": "^2.9.2"
