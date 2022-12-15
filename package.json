@@ -20,7 +20,7 @@
     "cors": "^2.8.5",
     "effector": "^21.8.12",
     "effector-dom": "0.0.15",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "forest": "^0.19.3",
     "lodash.template": "^4.5.0",
     "lodash.zip": "^4.2.0",
